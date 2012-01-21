@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
     if @report.save
       respond_with(@report, :status => :created, :location => @report)
     else
-      respond_with@report.errors, :status => :unprocessable_entity)
+      respond_with(@report.errors, :status => :unprocessable_entity)
     end
   end
 
