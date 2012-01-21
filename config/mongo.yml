@@ -1,6 +1,5 @@
 defaults: &defaults
-  host: 127.0.0.1
-  port: 27017
+  uri: mongodb://heroku_app2569762:am2qmppc3sojlv1nllisgajsja@ds029847.mongolab.com:29847/heroku_app2569762
 
 development:
   <<: *defaults
@@ -14,5 +13,3 @@ test:
 production:
   <<: *defaults
   database: ghsafe
-  username: <%= ENV['MONGO_USERNAME'] %>
-  password: <%= ENV['MONGO_PASSWORD'] %>
