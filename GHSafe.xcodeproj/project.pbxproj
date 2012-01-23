@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3911041214CB827600484B31 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3911041114CB827500484B31 /* MapKit.framework */; };
+		3911041D14CBC14C00484B31 /* GHSContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3911041C14CBC14C00484B31 /* GHSContactsViewController.m */; };
+		3911042014CBC80900484B31 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3911041E14CBC80800484B31 /* AddressBook.framework */; };
+		3911042114CBC80900484B31 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3911041F14CBC80800484B31 /* AddressBookUI.framework */; };
+		3911042414CC6C0B00484B31 /* GHSAPIRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3911042314CC6C0B00484B31 /* GHSAPIRequest.m */; };
+		3911042A14CCA5AD00484B31 /* GHSUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3911042914CCA5AD00484B31 /* GHSUser.m */; };
 		3942B16814CB435A00022626 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3942B16714CB435A00022626 /* UIKit.framework */; };
 		3942B16A14CB435A00022626 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3942B16914CB435A00022626 /* Foundation.framework */; };
 		3942B16C14CB435A00022626 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3942B16B14CB435A00022626 /* CoreGraphics.framework */; };
@@ -21,6 +27,16 @@
 		3942B18814CB435A00022626 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3942B16D14CB435A00022626 /* CoreData.framework */; };
 		3942B19014CB435A00022626 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3942B18E14CB435A00022626 /* InfoPlist.strings */; };
 		3942B19314CB435A00022626 /* GHSafeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3942B19214CB435A00022626 /* GHSafeTests.m */; };
+		3942B1B314CB46B000022626 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3942B1AA14CB45A800022626 /* libRestKit.a */; };
+		3942B1B514CB46BE00022626 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3942B1B414CB46BE00022626 /* CFNetwork.framework */; };
+		3942B1B714CB46CD00022626 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3942B1B614CB46CD00022626 /* MobileCoreServices.framework */; };
+		3942B1B914CB46D400022626 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3942B1B814CB46D400022626 /* Security.framework */; };
+		3942B1BB14CB46E300022626 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3942B1BA14CB46E200022626 /* SystemConfiguration.framework */; };
+		3942B1BD14CB46EA00022626 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3942B1BC14CB46EA00022626 /* libxml2.dylib */; };
+		3942B1DA14CB67AE00022626 /* GHSReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3942B1D914CB67AE00022626 /* GHSReport.m */; };
+		3942B1EF14CB682800022626 /* GHSContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 3942B1EE14CB682800022626 /* GHSContact.m */; };
+		3942B1F814CB6AD500022626 /* GHSafe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3942B1F714CB6AD400022626 /* GHSafe.storyboard */; };
+		3942B1FC14CB7D2700022626 /* GHSMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3942B1FA14CB7D2700022626 /* GHSMapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,27 +47,84 @@
 			remoteGlobalIDString = 3942B16214CB435A00022626;
 			remoteInfo = GHSafe;
 		};
+		3942B1A914CB45A800022626 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3942B19F14CB45A800022626 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D1614564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+		3942B1AB14CB45A800022626 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3942B19F14CB45A800022626 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D2614564E820060A5C5;
+			remoteInfo = RestKitTests;
+		};
+		3942B1AD14CB45A800022626 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3942B19F14CB45A800022626 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E62145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+		3942B1AF14CB45A800022626 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3942B19F14CB45A800022626 /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E78145651060060A5C5;
+			remoteInfo = RestKitFrameworkTests;
+		};
+		3942B1B114CB468400022626 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3942B19F14CB45A800022626 /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160D1514564E810060A5C5;
+			remoteInfo = RestKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3911041114CB827500484B31 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3911041B14CBC14C00484B31 /* GHSContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSContactsViewController.h; path = ui/GHSContactsViewController.h; sourceTree = "<group>"; };
+		3911041C14CBC14C00484B31 /* GHSContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSContactsViewController.m; path = ui/GHSContactsViewController.m; sourceTree = "<group>"; };
+		3911041E14CBC80800484B31 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		3911041F14CBC80800484B31 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		3911042214CC6C0B00484B31 /* GHSAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSAPIRequest.h; path = lib/GHSAPIRequest.h; sourceTree = "<group>"; };
+		3911042314CC6C0B00484B31 /* GHSAPIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSAPIRequest.m; path = lib/GHSAPIRequest.m; sourceTree = "<group>"; };
+		3911042814CCA5AD00484B31 /* GHSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSUser.h; path = lib/GHSUser.h; sourceTree = "<group>"; };
+		3911042914CCA5AD00484B31 /* GHSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSUser.m; path = lib/GHSUser.m; sourceTree = "<group>"; };
 		3942B16314CB435A00022626 /* GHSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3942B16714CB435A00022626 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3942B16914CB435A00022626 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3942B16B14CB435A00022626 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		3942B16D14CB435A00022626 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		3942B17114CB435A00022626 /* GHSafe-Info.plist */ = {isa = PBXFileReference; path = "GHSafe-Info.plist"; sourceTree = "<group>"; };
+		3942B17114CB435A00022626 /* GHSafe-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GHSafe-Info.plist"; sourceTree = "<group>"; };
 		3942B17314CB435A00022626 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3942B17514CB435A00022626 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3942B17714CB435A00022626 /* GHSafe-Prefix.pch */ = {isa = PBXFileReference; path = "GHSafe-Prefix.pch"; sourceTree = "<group>"; };
-		3942B17814CB435A00022626 /* GHSAppDelegate.h */ = {isa = PBXFileReference; path = GHSAppDelegate.h; sourceTree = "<group>"; };
+		3942B17714CB435A00022626 /* GHSafe-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GHSafe-Prefix.pch"; sourceTree = "<group>"; };
+		3942B17814CB435A00022626 /* GHSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHSAppDelegate.h; sourceTree = "<group>"; };
 		3942B17914CB435A00022626 /* GHSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHSAppDelegate.m; sourceTree = "<group>"; };
 		3942B17C14CB435A00022626 /* GHSafe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GHSafe.xcdatamodel; sourceTree = "<group>"; };
 		3942B18314CB435A00022626 /* GHSafeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHSafeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3942B18414CB435A00022626 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		3942B18D14CB435A00022626 /* GHSafeTests-Info.plist */ = {isa = PBXFileReference; path = "GHSafeTests-Info.plist"; sourceTree = "<group>"; };
+		3942B18D14CB435A00022626 /* GHSafeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GHSafeTests-Info.plist"; sourceTree = "<group>"; };
 		3942B18F14CB435A00022626 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3942B19114CB435A00022626 /* GHSafeTests.h */ = {isa = PBXFileReference; path = GHSafeTests.h; sourceTree = "<group>"; };
+		3942B19114CB435A00022626 /* GHSafeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHSafeTests.h; sourceTree = "<group>"; };
 		3942B19214CB435A00022626 /* GHSafeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHSafeTests.m; sourceTree = "<group>"; };
+		3942B19F14CB45A800022626 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		3942B1B414CB46BE00022626 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		3942B1B614CB46CD00022626 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		3942B1B814CB46D400022626 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		3942B1BA14CB46E200022626 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3942B1BC14CB46EA00022626 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		3942B1D814CB67AE00022626 /* GHSReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSReport.h; path = lib/GHSReport.h; sourceTree = "<group>"; };
+		3942B1D914CB67AE00022626 /* GHSReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSReport.m; path = lib/GHSReport.m; sourceTree = "<group>"; };
+		3942B1ED14CB682800022626 /* GHSContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSContact.h; path = lib/GHSContact.h; sourceTree = "<group>"; };
+		3942B1EE14CB682800022626 /* GHSContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSContact.m; path = lib/GHSContact.m; sourceTree = "<group>"; };
+		3942B1F714CB6AD400022626 /* GHSafe.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GHSafe.storyboard; sourceTree = "<group>"; };
+		3942B1F914CB7D2700022626 /* GHSMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSMapViewController.h; path = ui/GHSMapViewController.h; sourceTree = "<group>"; };
+		3942B1FA14CB7D2700022626 /* GHSMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSMapViewController.m; path = ui/GHSMapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +132,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3911042014CBC80900484B31 /* AddressBook.framework in Frameworks */,
+				3911042114CBC80900484B31 /* AddressBookUI.framework in Frameworks */,
+				3911041214CB827600484B31 /* MapKit.framework in Frameworks */,
+				3942B1BD14CB46EA00022626 /* libxml2.dylib in Frameworks */,
+				3942B1BB14CB46E300022626 /* SystemConfiguration.framework in Frameworks */,
+				3942B1B914CB46D400022626 /* Security.framework in Frameworks */,
+				3942B1B714CB46CD00022626 /* MobileCoreServices.framework in Frameworks */,
+				3942B1B514CB46BE00022626 /* CFNetwork.framework in Frameworks */,
+				3942B1B314CB46B000022626 /* libRestKit.a in Frameworks */,
 				3942B16814CB435A00022626 /* UIKit.framework in Frameworks */,
 				3942B16A14CB435A00022626 /* Foundation.framework in Frameworks */,
 				3942B16C14CB435A00022626 /* CoreGraphics.framework in Frameworks */,
@@ -83,6 +165,7 @@
 		3942B15814CB435A00022626 = {
 			isa = PBXGroup;
 			children = (
+				3942B19F14CB45A800022626 /* RestKit.xcodeproj */,
 				3942B16F14CB435A00022626 /* GHSafe */,
 				3942B18B14CB435A00022626 /* GHSafeTests */,
 				3942B16614CB435A00022626 /* Frameworks */,
@@ -102,6 +185,14 @@
 		3942B16614CB435A00022626 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3942B1BC14CB46EA00022626 /* libxml2.dylib */,
+				3911041E14CBC80800484B31 /* AddressBook.framework */,
+				3911041F14CBC80800484B31 /* AddressBookUI.framework */,
+				3911041114CB827500484B31 /* MapKit.framework */,
+				3942B1BA14CB46E200022626 /* SystemConfiguration.framework */,
+				3942B1B814CB46D400022626 /* Security.framework */,
+				3942B1B614CB46CD00022626 /* MobileCoreServices.framework */,
+				3942B1B414CB46BE00022626 /* CFNetwork.framework */,
 				3942B16714CB435A00022626 /* UIKit.framework */,
 				3942B16914CB435A00022626 /* Foundation.framework */,
 				3942B16B14CB435A00022626 /* CoreGraphics.framework */,
@@ -114,9 +205,12 @@
 		3942B16F14CB435A00022626 /* GHSafe */ = {
 			isa = PBXGroup;
 			children = (
+				3942B1FE14CB7D3900022626 /* UI */,
+				3942B1D114CB66F200022626 /* Libraries */,
 				3942B17814CB435A00022626 /* GHSAppDelegate.h */,
 				3942B17914CB435A00022626 /* GHSAppDelegate.m */,
 				3942B17B14CB435A00022626 /* GHSafe.xcdatamodeld */,
+				3942B1F714CB6AD400022626 /* GHSafe.storyboard */,
 				3942B17014CB435A00022626 /* Supporting Files */,
 			);
 			path = GHSafe;
@@ -152,6 +246,43 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		3942B1A014CB45A800022626 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3942B1AA14CB45A800022626 /* libRestKit.a */,
+				3942B1AC14CB45A800022626 /* RestKitTests.octest */,
+				3942B1AE14CB45A800022626 /* RestKit.framework */,
+				3942B1B014CB45A800022626 /* RestKitFrameworkTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3942B1D114CB66F200022626 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				3942B1ED14CB682800022626 /* GHSContact.h */,
+				3942B1EE14CB682800022626 /* GHSContact.m */,
+				3942B1D814CB67AE00022626 /* GHSReport.h */,
+				3942B1D914CB67AE00022626 /* GHSReport.m */,
+				3911042814CCA5AD00484B31 /* GHSUser.h */,
+				3911042914CCA5AD00484B31 /* GHSUser.m */,
+				3911042214CC6C0B00484B31 /* GHSAPIRequest.h */,
+				3911042314CC6C0B00484B31 /* GHSAPIRequest.m */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		3942B1FE14CB7D3900022626 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				3942B1F914CB7D2700022626 /* GHSMapViewController.h */,
+				3942B1FA14CB7D2700022626 /* GHSMapViewController.m */,
+				3911041B14CBC14C00484B31 /* GHSContactsViewController.h */,
+				3911041C14CBC14C00484B31 /* GHSContactsViewController.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -166,6 +297,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3942B1B214CB468400022626 /* PBXTargetDependency */,
 			);
 			name = GHSafe;
 			productName = GHSafe;
@@ -210,6 +342,12 @@
 			mainGroup = 3942B15814CB435A00022626;
 			productRefGroup = 3942B16414CB435A00022626 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3942B1A014CB45A800022626 /* Products */;
+					ProjectRef = 3942B19F14CB45A800022626 /* RestKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3942B16214CB435A00022626 /* GHSafe */,
@@ -218,12 +356,44 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		3942B1AA14CB45A800022626 /* libRestKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKit.a;
+			remoteRef = 3942B1A914CB45A800022626 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3942B1AC14CB45A800022626 /* RestKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitTests.octest;
+			remoteRef = 3942B1AB14CB45A800022626 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3942B1AE14CB45A800022626 /* RestKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RestKit.framework;
+			remoteRef = 3942B1AD14CB45A800022626 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3942B1B014CB45A800022626 /* RestKitFrameworkTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitFrameworkTests.octest;
+			remoteRef = 3942B1AF14CB45A800022626 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		3942B16114CB435A00022626 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				3942B17414CB435A00022626 /* InfoPlist.strings in Resources */,
+				3942B1F814CB6AD500022626 /* GHSafe.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +431,12 @@
 				3942B17614CB435A00022626 /* main.m in Sources */,
 				3942B17A14CB435A00022626 /* GHSAppDelegate.m in Sources */,
 				3942B17D14CB435A00022626 /* GHSafe.xcdatamodeld in Sources */,
+				3942B1DA14CB67AE00022626 /* GHSReport.m in Sources */,
+				3942B1EF14CB682800022626 /* GHSContact.m in Sources */,
+				3942B1FC14CB7D2700022626 /* GHSMapViewController.m in Sources */,
+				3911041D14CBC14C00484B31 /* GHSContactsViewController.m in Sources */,
+				3911042414CC6C0B00484B31 /* GHSAPIRequest.m in Sources */,
+				3911042A14CCA5AD00484B31 /* GHSUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +455,11 @@
 			isa = PBXTargetDependency;
 			target = 3942B16214CB435A00022626 /* GHSafe */;
 			targetProxy = 3942B18914CB435A00022626 /* PBXContainerItemProxy */;
+		};
+		3942B1B214CB468400022626 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKit;
+			targetProxy = 3942B1B114CB468400022626 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -352,7 +533,12 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GHSafe/GHSafe-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SOURCE_ROOT)/RestKit/Build";
 				INFOPLIST_FILE = "GHSafe/GHSafe-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -363,7 +549,12 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GHSafe/GHSafe-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(SOURCE_ROOT)/RestKit/Build";
 				INFOPLIST_FILE = "GHSafe/GHSafe-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -422,6 +613,7 @@
 				3942B19814CB435A00022626 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3942B19914CB435A00022626 /* Build configuration list for PBXNativeTarget "GHSafeTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +622,7 @@
 				3942B19B14CB435A00022626 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
