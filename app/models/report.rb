@@ -1,7 +1,12 @@
 class Report
   include MongoMapper::Document
 
-  key :type,      ReportType
+  INVALID = -1
+  MURDER  = 1
+  ASSAULT = 2
+  ROBBERY = 3
+
+  key :type,      Integer
   key :date,      Time
   key :latitude,  Float
   key :longitude, Float
