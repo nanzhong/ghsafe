@@ -7,6 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		390FC35214CF8B2300FCEB0D /* app_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35114CF8B2300FCEB0D /* app_icon.png */; };
+		390FC35414CF8B4600FCEB0D /* app_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35314CF8B4600FCEB0D /* app_icon@2x.png */; };
+		390FC36814D11F4F00FCEB0D /* button_assault.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35514D11F4E00FCEB0D /* button_assault.png */; };
+		390FC36914D11F4F00FCEB0D /* button_assault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35614D11F4E00FCEB0D /* button_assault@2x.png */; };
+		390FC36A14D11F4F00FCEB0D /* button_murder.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35714D11F4E00FCEB0D /* button_murder.png */; };
+		390FC36B14D11F4F00FCEB0D /* button_murder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35814D11F4E00FCEB0D /* button_murder@2x.png */; };
+		390FC36C14D11F4F00FCEB0D /* button_panic.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35914D11F4E00FCEB0D /* button_panic.png */; };
+		390FC36D14D11F4F00FCEB0D /* button_panic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35A14D11F4E00FCEB0D /* button_panic@2x.png */; };
+		390FC36E14D11F4F00FCEB0D /* button_robbery.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35B14D11F4F00FCEB0D /* button_robbery.png */; };
+		390FC36F14D11F4F00FCEB0D /* button_robbery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35C14D11F4F00FCEB0D /* button_robbery@2x.png */; };
+		390FC37014D11F4F00FCEB0D /* button_uneasy.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35D14D11F4F00FCEB0D /* button_uneasy.png */; };
+		390FC37114D11F4F00FCEB0D /* button_uneasy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35E14D11F4F00FCEB0D /* button_uneasy@2x.png */; };
+		390FC37214D11F4F00FCEB0D /* MapView.psd in Resources */ = {isa = PBXBuildFile; fileRef = 390FC35F14D11F4F00FCEB0D /* MapView.psd */; };
+		390FC37314D11F4F00FCEB0D /* pin_assault.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC36014D11F4F00FCEB0D /* pin_assault.png */; };
+		390FC37414D11F4F00FCEB0D /* pin_assault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC36114D11F4F00FCEB0D /* pin_assault@2x.png */; };
+		390FC37514D11F4F00FCEB0D /* pin_murder.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC36214D11F4F00FCEB0D /* pin_murder.png */; };
+		390FC37614D11F4F00FCEB0D /* pin_murder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC36314D11F4F00FCEB0D /* pin_murder@2x.png */; };
+		390FC37714D11F4F00FCEB0D /* pin_robbery.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC36414D11F4F00FCEB0D /* pin_robbery.png */; };
+		390FC37814D11F4F00FCEB0D /* pin_robbery@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC36514D11F4F00FCEB0D /* pin_robbery@2x.png */; };
+		390FC37914D11F4F00FCEB0D /* pin_uneasy.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC36614D11F4F00FCEB0D /* pin_uneasy.png */; };
+		390FC37A14D11F4F00FCEB0D /* pin_uneasy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC36714D11F4F00FCEB0D /* pin_uneasy@2x.png */; };
+		390FC38014D1224400FCEB0D /* MKMapView+GoogleLogo.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FC37F14D1224400FCEB0D /* MKMapView+GoogleLogo.m */; };
+		390FC38714D2348C00FCEB0D /* NSDate+Formatting.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FC38614D2348C00FCEB0D /* NSDate+Formatting.m */; };
+		390FC38A14D2349C00FCEB0D /* GHSNewReportAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FC38914D2349C00FCEB0D /* GHSNewReportAnnotation.m */; };
+		390FC38D14D2398E00FCEB0D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 390FC38C14D2398E00FCEB0D /* CoreLocation.framework */; };
+		390FC39014D23A4000FCEB0D /* GHSReportAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FC38F14D23A4000FCEB0D /* GHSReportAnnotation.m */; };
+		390FC39314D2484800FCEB0D /* GHSNewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FC39214D2484800FCEB0D /* GHSNewReportController.m */; };
 		3911041214CB827600484B31 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3911041114CB827500484B31 /* MapKit.framework */; };
 		3911041D14CBC14C00484B31 /* GHSContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3911041C14CBC14C00484B31 /* GHSContactsViewController.m */; };
 		3911042014CBC80900484B31 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3911041E14CBC80800484B31 /* AddressBook.framework */; };
@@ -85,13 +112,45 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		390FC35114CF8B2300FCEB0D /* app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = app_icon.png; path = ../../app_icon.png; sourceTree = "<group>"; };
+		390FC35314CF8B4600FCEB0D /* app_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "app_icon@2x.png"; path = "../../app_icon@2x.png"; sourceTree = "<group>"; };
+		390FC35514D11F4E00FCEB0D /* button_assault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_assault.png; sourceTree = "<group>"; };
+		390FC35614D11F4E00FCEB0D /* button_assault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_assault@2x.png"; sourceTree = "<group>"; };
+		390FC35714D11F4E00FCEB0D /* button_murder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_murder.png; sourceTree = "<group>"; };
+		390FC35814D11F4E00FCEB0D /* button_murder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_murder@2x.png"; sourceTree = "<group>"; };
+		390FC35914D11F4E00FCEB0D /* button_panic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_panic.png; sourceTree = "<group>"; };
+		390FC35A14D11F4E00FCEB0D /* button_panic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_panic@2x.png"; sourceTree = "<group>"; };
+		390FC35B14D11F4F00FCEB0D /* button_robbery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_robbery.png; sourceTree = "<group>"; };
+		390FC35C14D11F4F00FCEB0D /* button_robbery@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_robbery@2x.png"; sourceTree = "<group>"; };
+		390FC35D14D11F4F00FCEB0D /* button_uneasy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_uneasy.png; sourceTree = "<group>"; };
+		390FC35E14D11F4F00FCEB0D /* button_uneasy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_uneasy@2x.png"; sourceTree = "<group>"; };
+		390FC35F14D11F4F00FCEB0D /* MapView.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = MapView.psd; sourceTree = "<group>"; };
+		390FC36014D11F4F00FCEB0D /* pin_assault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_assault.png; sourceTree = "<group>"; };
+		390FC36114D11F4F00FCEB0D /* pin_assault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_assault@2x.png"; sourceTree = "<group>"; };
+		390FC36214D11F4F00FCEB0D /* pin_murder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_murder.png; sourceTree = "<group>"; };
+		390FC36314D11F4F00FCEB0D /* pin_murder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_murder@2x.png"; sourceTree = "<group>"; };
+		390FC36414D11F4F00FCEB0D /* pin_robbery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_robbery.png; sourceTree = "<group>"; };
+		390FC36514D11F4F00FCEB0D /* pin_robbery@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_robbery@2x.png"; sourceTree = "<group>"; };
+		390FC36614D11F4F00FCEB0D /* pin_uneasy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin_uneasy.png; sourceTree = "<group>"; };
+		390FC36714D11F4F00FCEB0D /* pin_uneasy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_uneasy@2x.png"; sourceTree = "<group>"; };
+		390FC37E14D1224400FCEB0D /* MKMapView+GoogleLogo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MKMapView+GoogleLogo.h"; path = "lib/MKMapView+GoogleLogo.h"; sourceTree = "<group>"; };
+		390FC37F14D1224400FCEB0D /* MKMapView+GoogleLogo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MKMapView+GoogleLogo.m"; path = "lib/MKMapView+GoogleLogo.m"; sourceTree = "<group>"; };
+		390FC38514D2348C00FCEB0D /* NSDate+Formatting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+Formatting.h"; path = "lib/NSDate+Formatting.h"; sourceTree = "<group>"; };
+		390FC38614D2348C00FCEB0D /* NSDate+Formatting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+Formatting.m"; path = "lib/NSDate+Formatting.m"; sourceTree = "<group>"; };
+		390FC38814D2349C00FCEB0D /* GHSNewReportAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSNewReportAnnotation.h; path = ui/GHSNewReportAnnotation.h; sourceTree = "<group>"; };
+		390FC38914D2349C00FCEB0D /* GHSNewReportAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSNewReportAnnotation.m; path = ui/GHSNewReportAnnotation.m; sourceTree = "<group>"; };
+		390FC38C14D2398E00FCEB0D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		390FC38E14D23A4000FCEB0D /* GHSReportAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSReportAnnotation.h; path = ui/GHSReportAnnotation.h; sourceTree = "<group>"; };
+		390FC38F14D23A4000FCEB0D /* GHSReportAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSReportAnnotation.m; path = ui/GHSReportAnnotation.m; sourceTree = "<group>"; };
+		390FC39114D2484800FCEB0D /* GHSNewReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSNewReportController.h; path = ui/GHSNewReportController.h; sourceTree = "<group>"; };
+		390FC39214D2484800FCEB0D /* GHSNewReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSNewReportController.m; path = ui/GHSNewReportController.m; sourceTree = "<group>"; };
 		3911041114CB827500484B31 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		3911041B14CBC14C00484B31 /* GHSContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSContactsViewController.h; path = ui/GHSContactsViewController.h; sourceTree = "<group>"; };
-		3911041C14CBC14C00484B31 /* GHSContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSContactsViewController.m; path = ui/GHSContactsViewController.m; sourceTree = "<group>"; };
+		3911041B14CBC14C00484B31 /* GHSContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = GHSContactsViewController.h; path = ui/GHSContactsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3911041C14CBC14C00484B31 /* GHSContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GHSContactsViewController.m; path = ui/GHSContactsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3911041E14CBC80800484B31 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3911041F14CBC80800484B31 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
-		3911042214CC6C0B00484B31 /* GHSAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSAPIRequest.h; path = lib/GHSAPIRequest.h; sourceTree = "<group>"; };
-		3911042314CC6C0B00484B31 /* GHSAPIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSAPIRequest.m; path = lib/GHSAPIRequest.m; sourceTree = "<group>"; };
+		3911042214CC6C0B00484B31 /* GHSAPIRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = GHSAPIRequest.h; path = lib/GHSAPIRequest.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3911042314CC6C0B00484B31 /* GHSAPIRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GHSAPIRequest.m; path = lib/GHSAPIRequest.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3911042814CCA5AD00484B31 /* GHSUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSUser.h; path = lib/GHSUser.h; sourceTree = "<group>"; };
 		3911042914CCA5AD00484B31 /* GHSUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSUser.m; path = lib/GHSUser.m; sourceTree = "<group>"; };
 		3942B16314CB435A00022626 /* GHSafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHSafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,15 +162,15 @@
 		3942B17314CB435A00022626 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3942B17514CB435A00022626 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3942B17714CB435A00022626 /* GHSafe-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GHSafe-Prefix.pch"; sourceTree = "<group>"; };
-		3942B17814CB435A00022626 /* GHSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHSAppDelegate.h; sourceTree = "<group>"; };
-		3942B17914CB435A00022626 /* GHSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHSAppDelegate.m; sourceTree = "<group>"; };
+		3942B17814CB435A00022626 /* GHSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GHSAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3942B17914CB435A00022626 /* GHSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHSAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3942B17C14CB435A00022626 /* GHSafe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GHSafe.xcdatamodel; sourceTree = "<group>"; };
 		3942B18314CB435A00022626 /* GHSafeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHSafeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3942B18414CB435A00022626 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		3942B18D14CB435A00022626 /* GHSafeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GHSafeTests-Info.plist"; sourceTree = "<group>"; };
 		3942B18F14CB435A00022626 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3942B19114CB435A00022626 /* GHSafeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHSafeTests.h; sourceTree = "<group>"; };
-		3942B19214CB435A00022626 /* GHSafeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHSafeTests.m; sourceTree = "<group>"; };
+		3942B19114CB435A00022626 /* GHSafeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GHSafeTests.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3942B19214CB435A00022626 /* GHSafeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHSafeTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3942B19F14CB45A800022626 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		3942B1B414CB46BE00022626 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		3942B1B614CB46CD00022626 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -120,8 +179,8 @@
 		3942B1BC14CB46EA00022626 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		3942B1D814CB67AE00022626 /* GHSReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSReport.h; path = lib/GHSReport.h; sourceTree = "<group>"; };
 		3942B1D914CB67AE00022626 /* GHSReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSReport.m; path = lib/GHSReport.m; sourceTree = "<group>"; };
-		3942B1ED14CB682800022626 /* GHSContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSContact.h; path = lib/GHSContact.h; sourceTree = "<group>"; };
-		3942B1EE14CB682800022626 /* GHSContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSContact.m; path = lib/GHSContact.m; sourceTree = "<group>"; };
+		3942B1ED14CB682800022626 /* GHSContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = GHSContact.h; path = lib/GHSContact.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3942B1EE14CB682800022626 /* GHSContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GHSContact.m; path = lib/GHSContact.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3942B1F714CB6AD400022626 /* GHSafe.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GHSafe.storyboard; sourceTree = "<group>"; };
 		3942B1F914CB7D2700022626 /* GHSMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSMapViewController.h; path = ui/GHSMapViewController.h; sourceTree = "<group>"; };
 		3942B1FA14CB7D2700022626 /* GHSMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSMapViewController.m; path = ui/GHSMapViewController.m; sourceTree = "<group>"; };
@@ -132,6 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				390FC38D14D2398E00FCEB0D /* CoreLocation.framework in Frameworks */,
 				3911042014CBC80900484B31 /* AddressBook.framework in Frameworks */,
 				3911042114CBC80900484B31 /* AddressBookUI.framework in Frameworks */,
 				3911041214CB827600484B31 /* MapKit.framework in Frameworks */,
@@ -162,9 +222,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		390FC34C14CF8A9900FCEB0D /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				390FC35514D11F4E00FCEB0D /* button_assault.png */,
+				390FC35614D11F4E00FCEB0D /* button_assault@2x.png */,
+				390FC35714D11F4E00FCEB0D /* button_murder.png */,
+				390FC35814D11F4E00FCEB0D /* button_murder@2x.png */,
+				390FC35914D11F4E00FCEB0D /* button_panic.png */,
+				390FC35A14D11F4E00FCEB0D /* button_panic@2x.png */,
+				390FC35B14D11F4F00FCEB0D /* button_robbery.png */,
+				390FC35C14D11F4F00FCEB0D /* button_robbery@2x.png */,
+				390FC35D14D11F4F00FCEB0D /* button_uneasy.png */,
+				390FC35E14D11F4F00FCEB0D /* button_uneasy@2x.png */,
+				390FC35F14D11F4F00FCEB0D /* MapView.psd */,
+				390FC36014D11F4F00FCEB0D /* pin_assault.png */,
+				390FC36114D11F4F00FCEB0D /* pin_assault@2x.png */,
+				390FC36214D11F4F00FCEB0D /* pin_murder.png */,
+				390FC36314D11F4F00FCEB0D /* pin_murder@2x.png */,
+				390FC36414D11F4F00FCEB0D /* pin_robbery.png */,
+				390FC36514D11F4F00FCEB0D /* pin_robbery@2x.png */,
+				390FC36614D11F4F00FCEB0D /* pin_uneasy.png */,
+				390FC36714D11F4F00FCEB0D /* pin_uneasy@2x.png */,
+				390FC35114CF8B2300FCEB0D /* app_icon.png */,
+				390FC35314CF8B4600FCEB0D /* app_icon@2x.png */,
+			);
+			name = Assets;
+			path = assets;
+			sourceTree = "<group>";
+		};
+		390FC38B14D234A300FCEB0D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				390FC38E14D23A4000FCEB0D /* GHSReportAnnotation.h */,
+				390FC38F14D23A4000FCEB0D /* GHSReportAnnotation.m */,
+				390FC38814D2349C00FCEB0D /* GHSNewReportAnnotation.h */,
+				390FC38914D2349C00FCEB0D /* GHSNewReportAnnotation.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		3942B15814CB435A00022626 = {
 			isa = PBXGroup;
 			children = (
+				390FC38C14D2398E00FCEB0D /* CoreLocation.framework */,
 				3942B19F14CB45A800022626 /* RestKit.xcodeproj */,
 				3942B16F14CB435A00022626 /* GHSafe */,
 				3942B18B14CB435A00022626 /* GHSafeTests */,
@@ -205,6 +306,7 @@
 		3942B16F14CB435A00022626 /* GHSafe */ = {
 			isa = PBXGroup;
 			children = (
+				390FC34C14CF8A9900FCEB0D /* Assets */,
 				3942B1FE14CB7D3900022626 /* UI */,
 				3942B1D114CB66F200022626 /* Libraries */,
 				3942B17814CB435A00022626 /* GHSAppDelegate.h */,
@@ -268,6 +370,10 @@
 				3911042914CCA5AD00484B31 /* GHSUser.m */,
 				3911042214CC6C0B00484B31 /* GHSAPIRequest.h */,
 				3911042314CC6C0B00484B31 /* GHSAPIRequest.m */,
+				390FC37E14D1224400FCEB0D /* MKMapView+GoogleLogo.h */,
+				390FC37F14D1224400FCEB0D /* MKMapView+GoogleLogo.m */,
+				390FC38514D2348C00FCEB0D /* NSDate+Formatting.h */,
+				390FC38614D2348C00FCEB0D /* NSDate+Formatting.m */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -275,10 +381,13 @@
 		3942B1FE14CB7D3900022626 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				390FC38B14D234A300FCEB0D /* Views */,
 				3942B1F914CB7D2700022626 /* GHSMapViewController.h */,
 				3942B1FA14CB7D2700022626 /* GHSMapViewController.m */,
 				3911041B14CBC14C00484B31 /* GHSContactsViewController.h */,
 				3911041C14CBC14C00484B31 /* GHSContactsViewController.m */,
+				390FC39114D2484800FCEB0D /* GHSNewReportController.h */,
+				390FC39214D2484800FCEB0D /* GHSNewReportController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -394,6 +503,27 @@
 			files = (
 				3942B17414CB435A00022626 /* InfoPlist.strings in Resources */,
 				3942B1F814CB6AD500022626 /* GHSafe.storyboard in Resources */,
+				390FC35214CF8B2300FCEB0D /* app_icon.png in Resources */,
+				390FC35414CF8B4600FCEB0D /* app_icon@2x.png in Resources */,
+				390FC36814D11F4F00FCEB0D /* button_assault.png in Resources */,
+				390FC36914D11F4F00FCEB0D /* button_assault@2x.png in Resources */,
+				390FC36A14D11F4F00FCEB0D /* button_murder.png in Resources */,
+				390FC36B14D11F4F00FCEB0D /* button_murder@2x.png in Resources */,
+				390FC36C14D11F4F00FCEB0D /* button_panic.png in Resources */,
+				390FC36D14D11F4F00FCEB0D /* button_panic@2x.png in Resources */,
+				390FC36E14D11F4F00FCEB0D /* button_robbery.png in Resources */,
+				390FC36F14D11F4F00FCEB0D /* button_robbery@2x.png in Resources */,
+				390FC37014D11F4F00FCEB0D /* button_uneasy.png in Resources */,
+				390FC37114D11F4F00FCEB0D /* button_uneasy@2x.png in Resources */,
+				390FC37214D11F4F00FCEB0D /* MapView.psd in Resources */,
+				390FC37314D11F4F00FCEB0D /* pin_assault.png in Resources */,
+				390FC37414D11F4F00FCEB0D /* pin_assault@2x.png in Resources */,
+				390FC37514D11F4F00FCEB0D /* pin_murder.png in Resources */,
+				390FC37614D11F4F00FCEB0D /* pin_murder@2x.png in Resources */,
+				390FC37714D11F4F00FCEB0D /* pin_robbery.png in Resources */,
+				390FC37814D11F4F00FCEB0D /* pin_robbery@2x.png in Resources */,
+				390FC37914D11F4F00FCEB0D /* pin_uneasy.png in Resources */,
+				390FC37A14D11F4F00FCEB0D /* pin_uneasy@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +567,11 @@
 				3911041D14CBC14C00484B31 /* GHSContactsViewController.m in Sources */,
 				3911042414CC6C0B00484B31 /* GHSAPIRequest.m in Sources */,
 				3911042A14CCA5AD00484B31 /* GHSUser.m in Sources */,
+				390FC38014D1224400FCEB0D /* MKMapView+GoogleLogo.m in Sources */,
+				390FC38714D2348C00FCEB0D /* NSDate+Formatting.m in Sources */,
+				390FC38A14D2349C00FCEB0D /* GHSNewReportAnnotation.m in Sources */,
+				390FC39014D23A4000FCEB0D /* GHSReportAnnotation.m in Sources */,
+				390FC39314D2484800FCEB0D /* GHSNewReportController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
