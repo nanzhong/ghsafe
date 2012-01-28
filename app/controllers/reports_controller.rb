@@ -23,10 +23,16 @@ class ReportsController < ApplicationController
 
   # GET /reports/search.json
   def search
-    lat = params[:lat]
-    long = params[:long]
+    lat = params[:latitude]
+    long = params[:longitude]
 
-    @reports = Report.where(:latitude => {:$gt => lat - 0.25, :$lt => lat + 0.25}, :longitude => {:$gt => long - 0.25, :$lt => long + 0.25})
+    if lat.nil? or long.nil?
+      @reports = { :error => "must specify latitude and longitude" }
+    else
+      lat = lat.to_f
+      long = long.to_f
+      @reports = Report.where(:latitude => {:$gt => lat - 0.25, :$lt => lat + 0.25}, :longitude => {:$gt => long - 0.25, :$lt => long + 0.25})
+    end
 
     respond_with(@reports)
   end
