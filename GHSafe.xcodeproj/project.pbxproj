@@ -33,7 +33,21 @@
 		390FC38A14D2349C00FCEB0D /* GHSNewReportAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FC38914D2349C00FCEB0D /* GHSNewReportAnnotation.m */; };
 		390FC38D14D2398E00FCEB0D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 390FC38C14D2398E00FCEB0D /* CoreLocation.framework */; };
 		390FC39014D23A4000FCEB0D /* GHSReportAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FC38F14D23A4000FCEB0D /* GHSReportAnnotation.m */; };
-		390FC39314D2484800FCEB0D /* GHSNewReportController.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FC39214D2484800FCEB0D /* GHSNewReportController.m */; };
+		390FC39314D2484800FCEB0D /* GHSNewReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FC39214D2484800FCEB0D /* GHSNewReportViewController.m */; };
+		390FC3A614DDA9AB00FCEB0D /* button_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3A414DDA9AB00FCEB0D /* button_settings.png */; };
+		390FC3A714DDA9AB00FCEB0D /* button_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3A514DDA9AB00FCEB0D /* button_settings@2x.png */; };
+		390FC3AD14DDB05800FCEB0D /* GHSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 390FC3AC14DDB05700FCEB0D /* GHSSettingsViewController.m */; };
+		390FC3B514DE178C00FCEB0D /* button_finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3AE14DE178C00FCEB0D /* button_finish.png */; };
+		390FC3B614DE178C00FCEB0D /* button_finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3AF14DE178C00FCEB0D /* button_finish@2x.png */; };
+		390FC3B714DE178C00FCEB0D /* button_setup_contacts.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3B014DE178C00FCEB0D /* button_setup_contacts.png */; };
+		390FC3B814DE178C00FCEB0D /* button_setup_contacts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3B114DE178C00FCEB0D /* button_setup_contacts@2x.png */; };
+		390FC3B914DE178C00FCEB0D /* setup_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3B214DE178C00FCEB0D /* setup_background.png */; };
+		390FC3BA14DE178C00FCEB0D /* setup_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3B314DE178C00FCEB0D /* setup_background@2x.png */; };
+		390FC3BB14DE178C00FCEB0D /* setup.psd in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3B414DE178C00FCEB0D /* setup.psd */; };
+		390FC3C014DE4EA400FCEB0D /* button_end.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3BC14DE4EA400FCEB0D /* button_end.png */; };
+		390FC3C114DE4EA400FCEB0D /* button_end@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3BD14DE4EA400FCEB0D /* button_end@2x.png */; };
+		390FC3C214DE4EA400FCEB0D /* button_help.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3BE14DE4EA400FCEB0D /* button_help.png */; };
+		390FC3C314DE4EA400FCEB0D /* button_help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 390FC3BF14DE4EA400FCEB0D /* button_help@2x.png */; };
 		3911041214CB827600484B31 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3911041114CB827500484B31 /* MapKit.framework */; };
 		3911041D14CBC14C00484B31 /* GHSContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3911041C14CBC14C00484B31 /* GHSContactsViewController.m */; };
 		3911042014CBC80900484B31 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3911041E14CBC80800484B31 /* AddressBook.framework */; };
@@ -142,8 +156,23 @@
 		390FC38C14D2398E00FCEB0D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		390FC38E14D23A4000FCEB0D /* GHSReportAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSReportAnnotation.h; path = ui/GHSReportAnnotation.h; sourceTree = "<group>"; };
 		390FC38F14D23A4000FCEB0D /* GHSReportAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSReportAnnotation.m; path = ui/GHSReportAnnotation.m; sourceTree = "<group>"; };
-		390FC39114D2484800FCEB0D /* GHSNewReportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSNewReportController.h; path = ui/GHSNewReportController.h; sourceTree = "<group>"; };
-		390FC39214D2484800FCEB0D /* GHSNewReportController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSNewReportController.m; path = ui/GHSNewReportController.m; sourceTree = "<group>"; };
+		390FC39114D2484800FCEB0D /* GHSNewReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSNewReportViewController.h; path = ui/GHSNewReportViewController.h; sourceTree = "<group>"; };
+		390FC39214D2484800FCEB0D /* GHSNewReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSNewReportViewController.m; path = ui/GHSNewReportViewController.m; sourceTree = "<group>"; };
+		390FC3A414DDA9AB00FCEB0D /* button_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_settings.png; sourceTree = "<group>"; };
+		390FC3A514DDA9AB00FCEB0D /* button_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_settings@2x.png"; sourceTree = "<group>"; };
+		390FC3AB14DDB05700FCEB0D /* GHSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GHSSettingsViewController.h; path = ui/GHSSettingsViewController.h; sourceTree = "<group>"; };
+		390FC3AC14DDB05700FCEB0D /* GHSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHSSettingsViewController.m; path = ui/GHSSettingsViewController.m; sourceTree = "<group>"; };
+		390FC3AE14DE178C00FCEB0D /* button_finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_finish.png; sourceTree = "<group>"; };
+		390FC3AF14DE178C00FCEB0D /* button_finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_finish@2x.png"; sourceTree = "<group>"; };
+		390FC3B014DE178C00FCEB0D /* button_setup_contacts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_setup_contacts.png; sourceTree = "<group>"; };
+		390FC3B114DE178C00FCEB0D /* button_setup_contacts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_setup_contacts@2x.png"; sourceTree = "<group>"; };
+		390FC3B214DE178C00FCEB0D /* setup_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setup_background.png; sourceTree = "<group>"; };
+		390FC3B314DE178C00FCEB0D /* setup_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setup_background@2x.png"; sourceTree = "<group>"; };
+		390FC3B414DE178C00FCEB0D /* setup.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = setup.psd; sourceTree = "<group>"; };
+		390FC3BC14DE4EA400FCEB0D /* button_end.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_end.png; path = images/button_end.png; sourceTree = "<group>"; };
+		390FC3BD14DE4EA400FCEB0D /* button_end@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_end@2x.png"; path = "images/button_end@2x.png"; sourceTree = "<group>"; };
+		390FC3BE14DE4EA400FCEB0D /* button_help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button_help.png; path = images/button_help.png; sourceTree = "<group>"; };
+		390FC3BF14DE4EA400FCEB0D /* button_help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button_help@2x.png"; path = "images/button_help@2x.png"; sourceTree = "<group>"; };
 		3911041114CB827500484B31 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3911041B14CBC14C00484B31 /* GHSContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = GHSContactsViewController.h; path = ui/GHSContactsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		3911041C14CBC14C00484B31 /* GHSContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GHSContactsViewController.m; path = ui/GHSContactsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -225,6 +254,19 @@
 		390FC34C14CF8A9900FCEB0D /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				390FC3BC14DE4EA400FCEB0D /* button_end.png */,
+				390FC3BD14DE4EA400FCEB0D /* button_end@2x.png */,
+				390FC3BE14DE4EA400FCEB0D /* button_help.png */,
+				390FC3BF14DE4EA400FCEB0D /* button_help@2x.png */,
+				390FC3AE14DE178C00FCEB0D /* button_finish.png */,
+				390FC3AF14DE178C00FCEB0D /* button_finish@2x.png */,
+				390FC3B014DE178C00FCEB0D /* button_setup_contacts.png */,
+				390FC3B114DE178C00FCEB0D /* button_setup_contacts@2x.png */,
+				390FC3B214DE178C00FCEB0D /* setup_background.png */,
+				390FC3B314DE178C00FCEB0D /* setup_background@2x.png */,
+				390FC3B414DE178C00FCEB0D /* setup.psd */,
+				390FC3A414DDA9AB00FCEB0D /* button_settings.png */,
+				390FC3A514DDA9AB00FCEB0D /* button_settings@2x.png */,
 				390FC35514D11F4E00FCEB0D /* button_assault.png */,
 				390FC35614D11F4E00FCEB0D /* button_assault@2x.png */,
 				390FC35714D11F4E00FCEB0D /* button_murder.png */,
@@ -265,7 +307,6 @@
 		3942B15814CB435A00022626 = {
 			isa = PBXGroup;
 			children = (
-				390FC38C14D2398E00FCEB0D /* CoreLocation.framework */,
 				3942B19F14CB45A800022626 /* RestKit.xcodeproj */,
 				3942B16F14CB435A00022626 /* GHSafe */,
 				3942B18B14CB435A00022626 /* GHSafeTests */,
@@ -286,6 +327,7 @@
 		3942B16614CB435A00022626 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				390FC38C14D2398E00FCEB0D /* CoreLocation.framework */,
 				3942B1BC14CB46EA00022626 /* libxml2.dylib */,
 				3911041E14CBC80800484B31 /* AddressBook.framework */,
 				3911041F14CBC80800484B31 /* AddressBookUI.framework */,
@@ -386,8 +428,10 @@
 				3942B1FA14CB7D2700022626 /* GHSMapViewController.m */,
 				3911041B14CBC14C00484B31 /* GHSContactsViewController.h */,
 				3911041C14CBC14C00484B31 /* GHSContactsViewController.m */,
-				390FC39114D2484800FCEB0D /* GHSNewReportController.h */,
-				390FC39214D2484800FCEB0D /* GHSNewReportController.m */,
+				390FC39114D2484800FCEB0D /* GHSNewReportViewController.h */,
+				390FC39214D2484800FCEB0D /* GHSNewReportViewController.m */,
+				390FC3AB14DDB05700FCEB0D /* GHSSettingsViewController.h */,
+				390FC3AC14DDB05700FCEB0D /* GHSSettingsViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -524,6 +568,19 @@
 				390FC37814D11F4F00FCEB0D /* pin_robbery@2x.png in Resources */,
 				390FC37914D11F4F00FCEB0D /* pin_uneasy.png in Resources */,
 				390FC37A14D11F4F00FCEB0D /* pin_uneasy@2x.png in Resources */,
+				390FC3A614DDA9AB00FCEB0D /* button_settings.png in Resources */,
+				390FC3A714DDA9AB00FCEB0D /* button_settings@2x.png in Resources */,
+				390FC3B514DE178C00FCEB0D /* button_finish.png in Resources */,
+				390FC3B614DE178C00FCEB0D /* button_finish@2x.png in Resources */,
+				390FC3B714DE178C00FCEB0D /* button_setup_contacts.png in Resources */,
+				390FC3B814DE178C00FCEB0D /* button_setup_contacts@2x.png in Resources */,
+				390FC3B914DE178C00FCEB0D /* setup_background.png in Resources */,
+				390FC3BA14DE178C00FCEB0D /* setup_background@2x.png in Resources */,
+				390FC3BB14DE178C00FCEB0D /* setup.psd in Resources */,
+				390FC3C014DE4EA400FCEB0D /* button_end.png in Resources */,
+				390FC3C114DE4EA400FCEB0D /* button_end@2x.png in Resources */,
+				390FC3C214DE4EA400FCEB0D /* button_help.png in Resources */,
+				390FC3C314DE4EA400FCEB0D /* button_help@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,7 +628,8 @@
 				390FC38714D2348C00FCEB0D /* NSDate+Formatting.m in Sources */,
 				390FC38A14D2349C00FCEB0D /* GHSNewReportAnnotation.m in Sources */,
 				390FC39014D23A4000FCEB0D /* GHSReportAnnotation.m in Sources */,
-				390FC39314D2484800FCEB0D /* GHSNewReportController.m in Sources */,
+				390FC39314D2484800FCEB0D /* GHSNewReportViewController.m in Sources */,
+				390FC3AD14DDB05800FCEB0D /* GHSSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

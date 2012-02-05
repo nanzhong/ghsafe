@@ -14,8 +14,13 @@
     SEL delegateFailureSelector;
     id requestObject;
     RKObjectMapping *requestMapping;
+    BOOL complete;
 }
 
-- (void)postObject:(NSObject*)object mapWith:(RKObjectMapping*)mapping acceptResponseWith:(id)target onSuccess:(SEL)successSel onFailure:(SEL)failSel;
+- (id)initWithDelegate:(id)delegate;
+- (void)loadObjectsAtResourcePath:(NSString*)resourcePath mapWith:(RKObjectMapping*)mapping onSuccess:(SEL)successSel onFailure:(SEL)failSel;
+- (void)postObject:(NSObject*)object mapWith:(RKObjectMapping*)mapping onSuccess:(SEL)successSel onFailure:(SEL)failSel;
+- (void)putObject:(NSObject*)object mapWith:(RKObjectMapping*)mapping onSuccess:(SEL)successSel onFailure:(SEL)failSel;
+- (BOOL)isComplete;
 
 @end

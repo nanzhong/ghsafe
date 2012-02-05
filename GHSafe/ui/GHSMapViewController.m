@@ -9,15 +9,15 @@
 #import "MKMapView+GoogleLogo.h"
 #import "GHSMapViewController.h"
 #import "GHSContactsViewController.h"
-#import "GHSNewReportController.h"
+#import "GHSNewReportViewController.h"
 #import "GHSUser.h"
 #import "GHSContact.h"
 
 @implementation GHSMapViewController
 
 @synthesize mapView, setupUserView, nameTextView, emailTextView, phoneTextView;
-@synthesize panicButton, uneasyButton, murderButton, robberyButton, assaultButton, finishButton, finishActivity;
-@synthesize reportHoldTimer;
+@synthesize panicButton, helpButton, endButton, uneasyButton, murderButton, robberyButton, assaultButton, finishButton, finishActivity, settingsButton;
+@synthesize reports;
 
 - (void)didReceiveMemoryWarning
 {
@@ -27,6 +27,74 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark - Map annotation helpers
+
+- (void)reloadReportAnnotations 
+{
+    NSArray *annotationsOnMap = self.mapView.annotations;
+    if (annotationsOnMap == nil || [annotationsOnMap count] == 0) {
+        NSMutableArray *annotationsToAdd = [NSMutableArray array];
+        
+        for (NSString *reportID in reports) {
+            GHSReport *report = [GHSReport findFirstByAttribute:@"id" withValue:reportID];
+            GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
+            [annotationsToAdd addObject:reportAnnotation];
+        }
+        
+        [self.mapView addAnnotations:annotationsToAdd];
+    } else {
+        NSMutableArray *annotationsToAdd = [NSMutableArray array];
+        
+        for (NSString *reportID in reports) {
+            GHSReport *report = [GHSReport findFirstByAttribute:@"id" withValue:reportID];
+            if (![annotationsOnMap containsObject:report]) {
+                GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
+                [annotationsToAdd addObject:reportAnnotation];
+            }
+        }
+        
+        [self.mapView addAnnotations:annotationsToAdd];
+    }
+}
+
+- (void)addReportAnnotationToMap:(GHSReport*)report
+{
+    if (![reports containsObject:report.id]) {
+        [reports addObject:report.id];
+        
+        GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
+        [self.mapView addAnnotation:reportAnnotation];
+    }
+}
+
+- (void)addReportAnnotationsToMap:(NSArray*)multipleReports
+{
+    NSMutableArray *reportsToAdd = [NSMutableArray array];
+    NSMutableArray *annotationsToAdd = [NSMutableArray array];
+    
+    for (GHSReport *report in multipleReports) {
+        DLog(@"%@", report);
+                DLog(@"%@", report.type);
+        if (![reports containsObject:report.id]) {
+            [reportsToAdd addObject:report.id];
+            
+            GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
+            [annotationsToAdd addObject:reportAnnotation];
+        }        
+    }
+    
+    [reports addObjectsFromArray:reportsToAdd];
+    [self.mapView addAnnotations:annotationsToAdd];
+}
+
+- (void)removeNewReportAnnotation
+{
+    [self.mapView removeAnnotation:newReportAnnotation];
+    newReportAnnotation = nil;
+}
+
+#pragma mark - UI helpers
+
 - (void)lockUI
 {
     self.mapView.userInteractionEnabled = NO;
@@ -35,6 +103,7 @@
     self.murderButton.userInteractionEnabled = NO;
     self.robberyButton.userInteractionEnabled = NO;
     self.assaultButton.userInteractionEnabled = NO;
+    self.settingsButton.enabled = NO;
     
     uiLocked = YES;
 }
@@ -47,6 +116,7 @@
     self.murderButton.userInteractionEnabled = YES;
     self.robberyButton.userInteractionEnabled = YES;
     self.assaultButton.userInteractionEnabled = YES;
+    self.settingsButton.enabled = YES;
     
     uiLocked = NO;    
 }
@@ -82,10 +152,55 @@
     reportingButtonsExpanded = NO;
 }
 
-- (void)heldDownReportButton:(NSTimer*)timer 
+- (GHSReport*)newReportWithType:(NSInteger)type
+{
+    CLLocationCoordinate2D coordinate = locationManager.location.coordinate;
+    
+    GHSReport *report = [GHSReport createEntity];
+    report.latitude = [NSNumber numberWithDouble:coordinate.latitude];
+    report.longitude = [NSNumber numberWithDouble:coordinate.longitude];
+    report.date = [NSDate date];
+    report.type = [NSNumber numberWithInt:type];
+    
+    return report;
+}
+
+- (BOOL)locationAvailable
+{
+    if (locationManager.location == nil) {
+        UIAlertView *error = [[UIAlertView alloc] initWithTitle:@"Please wait..." message:@"Determining your location at the moment..." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [error show];
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (void)submitNewReportWithType:(NSInteger)type
+{
+    if([self locationAvailable]) {
+        if ([submitReportRequest isComplete]) {
+            newReport = [self newReportWithType:type];
+            [submitReportRequest postObject:newReport mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSReport class]] onSuccess:@selector(didFinishCreatingReportWithResponseObjects:) onFailure:@selector(didFailCreatingReportWithError:)];
+        } else {
+            UIAlertView *error = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"Please wait until your last report is saved..." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [error show];            
+        }
+    }
+}
+
+- (void)fireReportHoldTimer:(NSTimer*)timer 
 {
     if (holdingDownReportButton) {
         [self expandReportingButtons];
+    }
+}
+
+- (void)fireFetchReportsTimer:(NSTimer*)timer 
+{
+    if ([self locationAvailable] && [[RKObjectManager sharedManager] isOnline]) {
+        [self fetchReportsNear:locationManager.location.coordinate];
     }
 }
 
@@ -93,15 +208,27 @@
 
 - (void)viewDidLoad
 {
-    DLog(@"MapViewController viewDidLoad");
     [super viewDidLoad];
-    
     [self lockUI];
+    
+    reports = [NSMutableArray array];
+    for (GHSReport *report in [GHSReport allObjects]) {
+        [reports addObject:report.id];
+    }
+
+    [self reloadReportAnnotations];
+    
     holdingDownReportButton = NO;
     uneasyButtonTouchedForExpand = NO;
     reportingButtonsExpanded = NO;
+    finishedFirstLocationReset = NO;
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    [locationManager startUpdatingLocation];
     
     [self.mapView googleLogo].center = CGPointMake(self.view.center.x, [self.mapView googleLogo].center.y);
+    
     [self contractReportingButtons];
     
     user = nil;
@@ -111,6 +238,7 @@
         DLog(@"Detected existing user: %@", user);
         [self unlockUI];
     } else {
+        registerUserRequest = [[GHSAPIRequest alloc] initWithDelegate:self];
         setupContacts = [NSArray array];
         user = [GHSUser createEntity];
         CFUUIDRef UUIDRef = CFUUIDCreate(kCFAllocatorDefault);
@@ -120,10 +248,13 @@
                               delay:0 
                             options:UIViewAnimationCurveEaseInOut 
                          animations:^{
-                             setupUserView.center = CGPointMake(160, 95);
+                             setupUserView.center = CGPointMake(160, 95+44+5);
                          } 
                          completion:NULL];
     }
+    
+    submitReportRequest = [[GHSAPIRequest alloc] initWithDelegate:self];
+    fetchReportsRequest = [[GHSAPIRequest alloc] initWithDelegate:self];
     
     geocoder = [[CLGeocoder alloc] init];
     
@@ -131,7 +262,9 @@
     longPressGestureRecognizer.minimumPressDuration = 1.0;
     [self.mapView addGestureRecognizer:longPressGestureRecognizer];
     
-    self.reportHoldTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(heldDownReportButton:) userInfo:nil repeats:YES];
+    reportHoldTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(fireReportHoldTimer:) userInfo:nil repeats:YES];
+    
+    fetchReportsTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(fireFetchReportsTimer:) userInfo:nil repeats:YES];
 }
 
 - (void)viewDidUnload
@@ -156,7 +289,8 @@
 		contactsViewController.delegate = self;
         [contactsViewController preloadContacts:setupContacts];
 	} else if ([segue.identifier isEqualToString:@"NewReport"]) {
-        GHSNewReportController *newReportController = segue.destinationViewController;
+        GHSNewReportViewController *newReportController = segue.destinationViewController;
+        newReportController.delegate = self;
         [newReportController loadReportCoordinate:newReportAnnotation.coordinate withAddress:newReportAnnotation.address];
     }
 }
@@ -231,6 +365,7 @@
             }
             
             annotationView.canShowCallout = YES;
+            annotationView.centerOffset = CGPointMake(0, -15);
             
             // add a detail disclosure button to the callout which will open a new view controller page
             //
@@ -304,7 +439,31 @@
     }
 }
 
+#pragma mark - CLLocationManager Delegate Methods
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    CLLocationCoordinate2D coordinate = newLocation.coordinate;
+    
+    if (!finishedFirstLocationReset) {
+        MKCoordinateRegion newRegion;
+        newRegion.center = coordinate;
+        newRegion.span.latitudeDelta = 0.005;
+        newRegion.span.longitudeDelta = 0.005;
+        [self.mapView setRegion:newRegion animated:YES];
+        finishedFirstLocationReset = YES;
+        [self fetchReportsNear:coordinate];
+    }
+}
+
 #pragma mark - Actions
+
+- (void)fetchReportsNear:(CLLocationCoordinate2D)location
+{
+    if ([self locationAvailable] && [fetchReportsRequest isComplete]) {
+        [fetchReportsRequest loadObjectsAtResourcePath:[NSString stringWithFormat:@"/reports/search.json?latitude=%f&longitude=%f", location.latitude, location.longitude] mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSReport class]] onSuccess:@selector(didFinishLoadingReportsWithResponseObjects:) onFailure:@selector(didFailLoadingReportsWithError:)];
+    }
+}
 
 - (void)didPressNewReportAnnotationButton
 {
@@ -359,13 +518,13 @@
     user.phone = phoneTextView.text;
     
     DLog(@"%@", user);
-    
-    request = [[GHSAPIRequest alloc] init];
-    [request postObject:user mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSUser class]] acceptResponseWith:self onSuccess:@selector(didFinishCreatingUserWithResponseObjects:) onFailure:@selector(didFailCreatingUserWithError:)];
+
+    [registerUserRequest postObject:user mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSUser class]] onSuccess:@selector(didFinishCreatingUserWithResponseObjects:) onFailure:@selector(didFailCreatingUserWithError:)];
     
     self.finishButton.titleLabel.alpha = 0;
     self.finishButton.userInteractionEnabled = NO;
     self.finishActivity.alpha = 1;
+    [self.finishActivity startAnimating];
 }
 
 - (IBAction)didTouchDownUneasyButton
@@ -379,8 +538,8 @@
     holdingDownReportButton = NO;    
     
     if (!uneasyButtonTouchedForExpand) {
-        UIAlertView *validation = [[UIAlertView alloc] initWithTitle:@"Uneasy Report" message:@"did not use for expand" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [validation show];
+        [self submitNewReportWithType:kUneasy];
+        [self contractReportingButtons];
     }
 }
 
@@ -389,6 +548,25 @@
     holdingDownReportButton = NO;
 }
 
+- (IBAction)didPressMurderButton
+{
+    [self submitNewReportWithType:kMurder];
+    [self contractReportingButtons];
+}
+
+- (IBAction)didPressAssaultButton
+{
+    [self submitNewReportWithType:kAssault];
+    [self contractReportingButtons];
+}
+
+- (IBAction)didPressRobberyButton
+{
+    [self submitNewReportWithType:kRobbery];
+    [self contractReportingButtons];
+}
+
+#pragma mark - GHSAPIRequest callbacks
 
 - (void)didFailCreatingUserWithError:(NSDictionary*)error 
 {
@@ -438,6 +616,41 @@
                      completion:NULL];
     
     [self unlockUI];
+}
+
+- (void)didFailCreatingReportWithError:(NSDictionary*)error
+{
+    UIAlertView *validation = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"Error creating incident report..." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [validation show];
+    
+    newReport = nil;
+}
+
+- (void)didFinishCreatingReportWithResponseObjects:(NSArray*)objects
+{
+    GHSReport *report = [objects objectAtIndex:0];
+    [self addReportAnnotationToMap:report];
+    
+    newReport = nil;
+}
+
+- (void)didFailLoadingReportsWithError:(NSDictionary*)error
+{
+    UIAlertView *validation = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"Server error fetching reports from server..." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [validation show];
+}
+
+- (void)didFinishLoadingReportsWithResponseObjects:(NSArray*)objects
+{
+    [self addReportAnnotationsToMap:objects];
+}
+
+#pragma mark - GHSNewReportViewController Delegate Methods
+
+- (void)newReportViewController:(GHSNewReportViewController*)controller didFinishCreatingReport:(GHSReport*)report 
+{
+    [self addReportAnnotationToMap:report];
+    [self removeNewReportAnnotation];
 }
 
 @end

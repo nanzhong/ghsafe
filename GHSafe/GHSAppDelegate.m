@@ -18,10 +18,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURL:@"http://192.168.0.12:3000"];
-    RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURL:@"http://127.0.0.1:3001"];
+    RKObjectManager *manager = [RKObjectManager objectManagerWithBaseURL:[NSString stringWithFormat:@"http://%@", API_HOST]];
     // Enable automatic network activity indicator management
-    manager.client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+    manager.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+    manager.requestQueue.requestTimeout = 15;
     
     // Initialize object store
     NSString *seedDatabaseName = nil;
@@ -33,6 +33,7 @@
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"setupComplete"]) {
         [GHSUser truncateAll];
     }
+    [GHSReport truncateAll];
     
     RKObjectRouter *router = [[RKObjectRouter alloc] init];
     
@@ -48,7 +49,7 @@
     [userMapping mapKeyPath:@"device_token" toAttribute:@"deviceToken"];
     [userMapping hasMany:@"contacts" withMapping:contactMapping];
     //[userMapping hasMany:@"reports" withMapping:reportMapping];
-    [router routeClass:[GHSUser class] toResourcePath:@"/users/:userID\\.json"];
+    [router routeClass:[GHSUser class] toResourcePath:@"/users/:id\\.json"];
     [router routeClass:[GHSUser class] toResourcePath:@"/users.json" forMethod:RKRequestMethodPOST];
 
     contactMapping.primaryKeyAttribute = @"id";
@@ -60,10 +61,9 @@
     //[contactMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:[userMapping inverseMapping] serialize:NO];
     
     reportMapping.primaryKeyAttribute = @"id";
-    [reportMapping mapAttributes:@"type", @"date", @"latitude", @"longitude", nil];
-    
-    DLog(@"%@", userMapping);
-    DLog(@"%@", contactMapping);
+    [reportMapping mapAttributes:@"id", @"type", @"date", @"latitude", @"longitude", nil];
+    [router routeClass:[GHSReport class] toResourcePath:@"/reports/:id\\.json"];
+    [router routeClass:[GHSReport class] toResourcePath:@"/reports.json" forMethod:RKRequestMethodPOST];
     
     [manager.mappingProvider addObjectMapping:userMapping];
     [manager.mappingProvider addObjectMapping:contactMapping];

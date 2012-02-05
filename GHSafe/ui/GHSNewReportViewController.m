@@ -1,17 +1,17 @@
 //
-//  GHSNewReportController.m
+//  GHSNewReportViewController.m
 //  GHSafe
 //
 //  Created by Nan Zhong on 12-01-26.
 //  Copyright (c) 2012 Enflick. All rights reserved.
 //
 
-#import "GHSNewReportController.h"
+#import "GHSNewReportViewController.h"
 #import "GHSNewReportAnnotation.h"
 
-@implementation GHSNewReportController
+@implementation GHSNewReportViewController
 
-@synthesize mapView, locationLabel, datePicker, typeSegmentedControl;
+@synthesize mapView, locationLabel, datePicker, typeSegmentedControl, loadingView, delegate;
 
 - (void)didReceiveMemoryWarning
 {
@@ -34,6 +34,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.loadingView.alpha = 0;
+    
     self.datePicker.date = [NSDate date];
     self.datePicker.maximumDate = [NSDate date];
     self.locationLabel.text = address;
@@ -48,6 +51,8 @@
     span.longitudeDelta = 0.01;
     region.span = span;
     [self.mapView setRegion:region animated:YES];   
+    
+    request = [[GHSAPIRequest alloc] initWithDelegate:self];
 }
 
 - (void)viewDidUnload
@@ -74,6 +79,38 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+- (IBAction)didPressSaveButton
+{
+    newReport = [GHSReport createEntity];
+    newReport.latitude = [NSNumber numberWithDouble:coordinate.latitude];
+    newReport.longitude = [NSNumber numberWithDouble:coordinate.longitude];
+    newReport.date = self.datePicker.date;
+
+    NSInteger selectedIndex = self.typeSegmentedControl.selectedSegmentIndex;
+    NSInteger type;
+    switch (selectedIndex) {
+        case 0:
+            type = kUneasy;
+            break;
+        case 1:
+            type = kMurder;
+            break;
+        case 2:
+            type = kAssault;
+            break;
+        case 3:
+            type = kRobbery;
+            break;
+        default:
+            type = kInvalid;
+    }
+    newReport.type = [NSNumber numberWithInt:type];
+
+    [request postObject:newReport mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSReport class]] onSuccess:@selector(didFinishCreatingReportWithResponseObjects:) onFailure:@selector(didFailCreatingReportWithError:)];
+    
+    self.loadingView.alpha = 1;
+}
+
 #pragma mark - MKMapView Delegate Methods
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
@@ -94,6 +131,27 @@
     }
     
     return annotationView;
+}
+
+- (void)didFailCreatingReportWithError:(NSDictionary*)error
+{
+    self.loadingView.alpha = 0;
+    
+    UIAlertView *validation = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"Error saving incident report..." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [validation show];
+    
+    newReport = nil;
+}
+
+- (void)didFinishCreatingReportWithResponseObjects:(NSArray*)objects
+{
+    self.loadingView.alpha = 0;
+    
+    [self.delegate newReportViewController:self didFinishCreatingReport:newReport];
+    
+    [self dismissModalViewControllerAnimated:YES];
+    
+    newReport = nil;
 }
 
 @end
