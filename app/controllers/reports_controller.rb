@@ -31,7 +31,7 @@ class ReportsController < ApplicationController
     else
       lat = lat.to_f
       long = long.to_f
-      @reports = Report.where(:latitude => {:$gt => lat - 0.25, :$lt => lat + 0.25}, :longitude => {:$gt => long - 0.25, :$lt => long + 0.25})
+      @reports = Report.where(:latitude => {:$gt => lat - 1, :$lt => lat + 1}, :longitude => {:$gt => long - 1, :$lt => long + 1})
     end
 
     #Resque.enqueue(SpotCrimeFetcher, lat, long)
