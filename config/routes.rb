@@ -9,6 +9,14 @@ Ghsafe::Application.routes.draw do
     end
   end
 
+  resources :routes do
+    get 'track'
+    resources :locations
+    resources :videos do
+      get 'play'
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

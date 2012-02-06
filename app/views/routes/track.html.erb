@@ -1,0 +1,35 @@
+<% if @route.locations.count > 0 %>
+
+<script type="text/javascript">
+  var locations = new Array();
+
+  <% @route.locations.each do |location| %>
+    locations.push(new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>));
+  <% end %>
+
+  var lastLocation = locations[locations.length-1];
+
+  $(function() {
+    var yourStartLatLng = new google.maps.LatLng(<%= "#{@route.locations.first.latitude},#{@route.locations.first.longitude}"%>);
+
+    $('#map_canvas').gmap({'center': yourStartLatLng, 'zoom': 17});
+    $('#map_canvas').gmap('addShape', 'Polyline', { "strokeColor": "#CC3333", "strokeOpacity": 0.7, "strokeWeight": 5, "path": locations });
+    $('#map_canvas').gmap('addMarker', { 'position': lastLocation, 'bounds': false } );
+  });
+ </script>
+
+<% if notice %>
+  <p id="notice"><%= notice %> </p>
+<% end %>
+<h1>Route ID: <%= @route.id %></h1>
+<div id="map_canvas" style="width:600px; height:400px; float:left;"></div>
+<div id="data_points" style="width:400px; height:400px; float:left; overflow:scroll;">
+  <% @route.locations.each do |location| %>
+    <p>Lat: <%= location.latitude %> Long: <%= location.longitude %> Date: <%= location.date %></p>
+  <% end %>
+</div>
+
+
+<% else %>
+  Sorry no data yet for this route
+<% end %>

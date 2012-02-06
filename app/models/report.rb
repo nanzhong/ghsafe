@@ -5,6 +5,7 @@ class Report
   MURDER  = 1
   ASSAULT = 2
   ROBBERY = 3
+  UNEASY  = 4
 
   key :type,      Integer
   key :date,      Time

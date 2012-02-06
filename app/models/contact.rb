@@ -4,5 +4,8 @@ class Contact
   key :first_name,  String
   key :last_name,   String
   key :email,       String, :required => true 
-  key :phone,       Integer
+  key :phone,       String
+
+  embedded_in :user
+
 end
