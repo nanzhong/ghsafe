@@ -35,7 +35,7 @@ class ReportsController < ApplicationController
       @reports = Report.where(:latitude => {:$gt => lat - 1, :$lt => lat + 1}, :longitude => {:$gt => long - 1, :$lt => long + 1})
     end
 
-    #Resque.enqueue(SpotCrimeFetcher, lat, long)
+    Resque.enqueue(SpotCrimeFetcher, lat, long, 1)
 
     respond_with(@reports)
   end

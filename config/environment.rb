@@ -2,8 +2,8 @@
 require File.expand_path('../application', __FILE__)
 
 ActionMailer::Base.smtp_settings = {
-  :user_name => "nan@nine27.com",
-  :password => "nanailing4ever",
+  :user_name => "nan.zhong@ghsafe.com",
+  :password => "GHSfydp12",
   :domain => "ghsafe.com",
   :address => "smtp.sendgrid.net",
   :port => 587,

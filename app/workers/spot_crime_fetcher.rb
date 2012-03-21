@@ -16,8 +16,6 @@ class SpotCrimeFetcher
     result = JSON.parse(data)
 
     result['crimes'].each do |report|
-      puts report.inspect
-
       report_hash = {}
 
       case report['type']
@@ -39,8 +37,10 @@ class SpotCrimeFetcher
       report_hash[:longitude] = report['lon']
       report_hash[:date] = Time.strptime(report['date'], '%m/%d/%y %I:%M %p')
 
-      @report = Report.new(report_hash)
-      @report.save
+      if Report.where(report_hash).count == 0
+        @report = Report.new(report_hash)
+        @report.save
+      end
     end
   end
 
