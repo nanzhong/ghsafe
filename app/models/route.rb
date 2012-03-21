@@ -4,6 +4,7 @@ class Route
   key :date, Time
 
   many :locations
+  belongs_to :user
 
   timestamps!
 end

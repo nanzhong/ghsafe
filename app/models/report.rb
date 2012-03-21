@@ -6,6 +6,8 @@ class Report
   key :latitude,  Float
   key :longitude, Float
 
+  belongs_to :user
+
   timestamps!
 
   validates_presence_of :type, :date, :latitude, :longitude

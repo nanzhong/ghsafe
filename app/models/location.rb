@@ -4,4 +4,6 @@ class Location
   key :latitude,  Float
   key :longitude, Float
 
+  belongs_to :route
+
 end

@@ -1,13 +1,14 @@
 class User
   include MongoMapper::Document
 
-  key :first_name,    String
-  key :last_name,     String
+  key :name,          String
   key :email,         String
   key :phone,         Integer
   key :device_token,  String
 
   many :contacts
+  many :reports
+  many :routes
 
   timestamps!
 
