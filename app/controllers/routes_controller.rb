@@ -29,8 +29,6 @@ class RoutesController < ApplicationController
     @route = Route.find(params[:route_id])
     @after = Time.at(params[:after].to_i)
     @locations = @route.locations.select {|l| l.date > @after}
-    puts "*"*100
-    puts @locations.inspect
   end
 
 end

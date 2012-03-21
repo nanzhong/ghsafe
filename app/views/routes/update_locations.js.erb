@@ -1,9 +1,24 @@
 <% if @locations.count > 0 %>
 
-$("#last_image").attr("src", "/routes/<%= @route.id %>/locations/<%= @locations.last.id %>/image");
+  <% if not @locations.last.image_id.nil? %>
+    $("#last_image").attr("src", "/routes/<%= @route.id %>/locations/<%= @locations.last.id %>/image");
+  <% end %>
 
-$("#last_location").replaceWith("<%= raw escape_javascript(render :partial => 'last_location', :object => @locations.last) %>");
+  $("#last_location").replaceWith("<%= raw escape_javascript(render :partial => 'last_location', :object => @locations.last) %>");
 
-$()
+  var newLocations = new Array();
+  newLocations.push(lastLocation);
+  <% @locations.uniq.each do |location| %>
+    newLocations.push(new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>));
+  <% end %>
+
+  if (newLocations.length > 1 &&
+      !lastLocation.equals(newLocations[newLocations.length-1])) {
+    var lastLocation = newLocations[newLocations.length-1];
+
+    $('#map_canvas').gmap('addShape', 'Polyline', { "strokeColor": "#CC3333", "strokeOpacity": 0.7, "strokeWeight": 5, "path": newLocations });
+    $("#map_canvas").gmap('clear', 'markers');
+    $('#map_canvas').gmap('addMarker', { 'position': lastLocation, 'bounds': true } );
+  }
 
 <% end %>
