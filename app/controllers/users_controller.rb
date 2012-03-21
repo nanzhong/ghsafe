@@ -13,6 +13,8 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.save
 
+    puts @user.errors.inspect
+
     respond_with(@user)
   end
   

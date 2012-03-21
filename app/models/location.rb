@@ -10,4 +10,6 @@ class Location
 
   embedded_in :route
 
+  belongs_to :route
+
 end
