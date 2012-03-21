@@ -3,7 +3,7 @@ class User
 
   key :name,          String
   key :email,         String
-  key :phone,         Integer
+  key :phone,         String
   key :device_token,  String
 
   many :contacts
@@ -12,7 +12,7 @@ class User
 
   timestamps!
 
-  validates_presence_of :email, :device_token
+  validates_presence_of :name, :email, :device_token
   validates_uniqueness_of :email, :device_token
 
 end
