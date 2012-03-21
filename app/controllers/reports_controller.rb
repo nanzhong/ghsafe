@@ -7,6 +7,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       format.json { render :json => @reports }
+      format.html { render }
     end
   end
 
