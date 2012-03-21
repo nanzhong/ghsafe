@@ -20,12 +20,17 @@ class RoutesController < ApplicationController
   def track
     @route = Route.find(params[:route_id])
 
+    @last_location = @route.locations.last
+
     render :layout => 'track'
   end
 
-  def update_tracking
+  def update_locations
     @route = Route.find(params[:route_id])
-
+    @after = Time.at(params[:after].to_i)
+    @locations = @route.locations.select {|l| l.date > @after}
+    puts "*"*100
+    puts @locations.inspect
   end
 
 end

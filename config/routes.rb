@@ -11,7 +11,10 @@ Ghsafe::Application.routes.draw do
 
   resources :routes do
     get 'track'
-    resources :locations
+    get 'update_locations'
+    resources :locations do
+      get 'image'
+    end
     resources :videos do
       get 'play'
     end

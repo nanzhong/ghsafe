@@ -2,6 +2,13 @@ class LocationsController < ApplicationController
 
   respond_to :json
 
+  def image
+    @route = Route.find(params[:route_id])
+    @location = @route.locations.find(params[:location_id])
+    
+    send_data @location.image.read, :disposition => 'inline', :type => @location.image_type 
+  end
+
   def create
     @route = Route.find(params[:route_id])
 

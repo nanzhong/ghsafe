@@ -12,23 +12,40 @@
   $(function() {
     var yourStartLatLng = new google.maps.LatLng(<%= "#{@route.locations.first.latitude},#{@route.locations.first.longitude}"%>);
 
-    $('#map_canvas').gmap({'center': yourStartLatLng, 'zoom': 17});
+    $('#map_canvas').gmap({'center': lastLocation, 'zoom': 17});
     $('#map_canvas').gmap('addShape', 'Polyline', { "strokeColor": "#CC3333", "strokeOpacity": 0.7, "strokeWeight": 5, "path": locations });
     $('#map_canvas').gmap('addMarker', { 'position': lastLocation, 'bounds': false } );
   });
+
+  $(function() {
+    setTimeout(updateLocations, 1000);
+  });
+
+  function updateLocations() {
+    var after = $("#last_location").attr("data-date");
+    $.getScript("/routes/<%= @route.id %>/update_locations.js?after=" + after);
+    setTimeout(updateLocations, 1000);
+  }
  </script>
 
 <% if notice %>
   <p id="notice"><%= notice %> </p>
 <% end %>
-<h1>Route ID: <%= @route.id %></h1>
-<div id="map_canvas" style="width:600px; height:400px; float:left;"></div>
+<h1>Tracking <span id="user_name"><%= @route.user.name %></span></h1>
+<div id="last_update">Last updated location at: <%= @route.locations.last.date %></div>
+<div id="track_container" style="position:relative; width:640px; height:480px; float:left; margin:10px; padding:2px; border:2px solid #000000">
+  <div id="map_canvas" style="width:640px; height:480px;"></div>
+  <%= render :partial => "last_image", :locals => { :last_location => @last_location, :route => @route} %>
+</div>
+
 <div id="data_points" style="width:400px; height:400px; float:left; overflow:scroll;">
-  <% @route.locations.each do |location| %>
+  <h2>Recent Locations</h2>
+  <% (@route.locations[-20..-1] || @route.locations).each do |location| %>
     <p>Lat: <%= location.latitude %> Long: <%= location.longitude %> Date: <%= location.date %></p>
   <% end %>
 </div>
 
+<%= render :partial => "last_location", :object => @last_location %>
 
 <% else %>
   Sorry no data yet for this route

@@ -1,0 +1,9 @@
+<% if @locations.count > 0 %>
+
+$("#last_image").attr("src", "/routes/<%= @route.id %>/locations/<%= @locations.last.id %>/image");
+
+$("#last_location").replaceWith("<%= raw escape_javascript(render :partial => 'last_location', :object => @locations.last) %>");
+
+$()
+
+<% end %>
