@@ -8,19 +8,26 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import "GHSContactsViewController.h"
 #import "GHSNewReportViewController.h"
 #import "GHSReportAnnotation.h"
 #import "GHSNewReportAnnotation.h"
+#import "GHSHeatOverlay.h"
+#import "GHSHeatOverlayView.h"
 #import "GHSAPIRequest.h"
+#import "GHSUser.h"
+#import "GHSContact.h"
+#import "GHSRoute.h"
+#import "GHSLocation.h"
 
-@class GHSUser;
-@class GHSReport;
+UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 
-@interface GHSMapViewController : UIViewController <GHSContactsViewControllerDelegate, GHSNewReportViewControllerDelegate, MKMapViewDelegate, CLLocationManagerDelegate> 
+@interface GHSMapViewController : UIViewController <GHSContactsViewControllerDelegate, GHSNewReportViewControllerDelegate, MKMapViewDelegate, CLLocationManagerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate> 
 {
     GHSUser *user;
     GHSAPIRequest *registerUserRequest;
+    GHSAPIRequest *updateUserRequest;
     NSArray *setupContacts;
 
     GHSReport *newReport;
@@ -42,13 +49,27 @@
     NSMutableArray *reports;
     NSTimer *fetchReportsTimer;
     GHSAPIRequest *fetchReportsRequest;
+    NSMutableArray *heatOverlays;
+    BOOL showHeatMap;
+    NSMutableArray *panicModeRouteLines;
     
     BOOL panicMode;
     GHSAPIRequest *createRouteRequest;
     GHSAPIRequest *fetchRouteRequest;
     GHSAPIRequest *updateLocationRequest;
+    GHSRoute *route;
+    NSDate *routeStartDate;
     NSString *routeID;
     NSMutableArray *routeLocations;
+    NSArray *sendingLocations;
+    NSTimer *locationUpdateTimer;
+    AVCaptureSession *captureSession;
+    NSData *latestImageData;
+    NSString *lastAddress;
+    NSInteger frameCounter;
+    AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
+    
+    UIColor *tintColor;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
@@ -65,7 +86,11 @@
 @property (nonatomic, retain) IBOutlet UIButton *murderButton;
 @property (nonatomic, retain) IBOutlet UIButton *assaultButton;
 @property (nonatomic, retain) IBOutlet UIButton *robberyButton;
+@property (nonatomic, retain) IBOutlet UIButton *locationButton;
+@property (nonatomic, retain) IBOutlet UIButton *heatMapButton;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *settingsButton;
+@property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
+@property (nonatomic, retain) IBOutlet UIView *capturePreviewView;
 
 @property (nonatomic, retain) NSMutableArray *reports;
 
@@ -80,11 +105,19 @@
 - (IBAction)didPressAssaultButton;
 - (IBAction)didPressRobberyButton;
 - (IBAction)didPressPanicModeButton;
+- (IBAction)didPressHelpButton;
+- (IBAction)didPressEndButton;
+- (IBAction)didPressLocationButton;
+- (IBAction)didPressHeatMapButton;
 - (void)didFailCreatingUserWithError:(NSDictionary*)error;
 - (void)didFinishCreatingUserWithResponseObjects:(NSArray*)objects;
 - (void)didFailCreatingReportWithError:(NSDictionary*)error;
 - (void)didFinishCreatingReportWithResponseObjects:(NSArray*)objects;
 - (void)didFailLoadingReportsWithError:(NSDictionary*)error;
 - (void)didFinishLoadingReportsWithResponseObjects:(NSArray*)objects;
+- (void)didFailCreatingRouteWithError:(NSDictionary*)error;
+- (void)didFinishCreatingRouteWithResponseObjects:(NSArray*)objects;
+- (void)didFailAddingLocationWithError:(NSDictionary*)error;
+- (void)didFinishAddingLocationWithResponseObjects:(NSArray*)objects;
 
 @end

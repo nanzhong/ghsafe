@@ -54,13 +54,21 @@
     [[RKObjectManager sharedManager] putObject:requestObject mapResponseWith:requestMapping delegate:self];
 }
 
+- (void)postObject:(NSObject *)object block:(void (^) (RKObjectLoader*))block onSuccess:(SEL)successSel onFailure:(SEL)failSel
+{
+    delegateSuccessSelector = successSel;
+    delegateFailureSelector = failSel;
+    requestObject = object;
+    [[RKObjectManager sharedManager] postObject:object delegate:self block:block];
+}
+
 #pragma mark - RKObjectLoaderDelegate
 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
 {
     complete = YES;
-    DLog("Received: %@", [objectLoader.response bodyAsString]);
+    //DLog("Received: %@", [objectLoader.response bodyAsString]);
     NSDictionary *errorDict;
     if ([objectLoader.response isUnprocessableEntity]) {
         NSError *parseError;
@@ -73,7 +81,7 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects
 {
     complete = YES;
-    DLog("Received: %@", [objectLoader.response bodyAsString]);
+    //DLog("Received: %@", [objectLoader.response bodyAsString]);
     [delegateTarget performSelector:delegateSuccessSelector withObject:objects];
 }
 

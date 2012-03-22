@@ -147,7 +147,8 @@
         
         NSMutableArray *contacts = [NSMutableArray array];
         for (GHSContact *contact in user.contacts) {
-            NSDictionary *contactDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:contact.name, contact.email, contact.phone, nil] forKeys:[NSArray arrayWithObjects:@"name", @"email", @"phone", nil]];
+            DLog(@"%@", contact);
+            NSDictionary *contactDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:contact.name, [NSString stringWithFormat:@"%@", contact.email], [NSString stringWithFormat: @"%@", contact.phone], nil] forKeys:[NSArray arrayWithObjects:@"name", @"email", @"phone", nil]];
             [contacts addObject:contactDict];
         }
         

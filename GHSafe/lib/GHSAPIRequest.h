@@ -21,6 +21,7 @@
 - (void)loadObjectsAtResourcePath:(NSString*)resourcePath mapWith:(RKObjectMapping*)mapping onSuccess:(SEL)successSel onFailure:(SEL)failSel;
 - (void)postObject:(NSObject*)object mapWith:(RKObjectMapping*)mapping onSuccess:(SEL)successSel onFailure:(SEL)failSel;
 - (void)putObject:(NSObject*)object mapWith:(RKObjectMapping*)mapping onSuccess:(SEL)successSel onFailure:(SEL)failSel;
+- (void)postObject:(NSObject *)object block:(void (^) (RKObjectLoader*))block  onSuccess:(SEL)successSel onFailure:(SEL)failSel;
 - (BOOL)isComplete;
 
 @end

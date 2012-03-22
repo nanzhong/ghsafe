@@ -19,5 +19,6 @@
 @dynamic name;
 @dynamic phone;
 @dynamic contacts;
+@dynamic routes;
 
 @end

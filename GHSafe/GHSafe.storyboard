@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="11C74" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Vjf-VU-UNA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Vjf-VU-UNA">
     <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1179"/>
     </dependencies>
     <scenes>
+        <!--Settings View Controller - Settings-->
         <scene sceneID="WMp-HN-QsB">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1xv-dW-BB5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -75,7 +77,7 @@
                                         <rect key="frame" x="0.0" y="125" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Email" lineBreakMode="tailTruncation" minimumFontSize="10" id="U1J-HN-ftR">
@@ -100,7 +102,7 @@
                                         <rect key="frame" x="0.0" y="169" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Phone" lineBreakMode="tailTruncation" minimumFontSize="10" id="EcO-Cl-xc2">
@@ -125,7 +127,7 @@
                                         <rect key="frame" x="0.0" y="213" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Manage Emergency Contacts" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="RP1-xk-wzo">
@@ -144,7 +146,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Map Settings" id="NS9-3a-Dxy">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="rtB-i7-RPV">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="rtB-i7-RPV">
                                         <rect key="frame" x="0.0" y="304" width="320" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -198,6 +200,7 @@
             </objects>
             <point key="canvasLocation" x="-1190" y="-286"/>
         </scene>
+        <!--Map View Controller - Map View-->
         <scene sceneID="GB5-D0-zh4">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sj1-SG-d4u" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -321,6 +324,21 @@
                                     <action selector="didTouchUpOutsideUneasyButton" destination="Vjf-VU-UNA" eventType="touchUpOutside" id="4E4-bk-HnQ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZaJ-NT-Uiw">
+                                <rect key="frame" x="320" y="460" width="70" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="button_end.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressEndButton" destination="Vjf-VU-UNA" eventType="touchUpInside" id="8B8-SJ-KPc"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="scs-6P-Kot">
                                 <rect key="frame" x="0.0" y="365" width="95" height="95"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -332,6 +350,24 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="didPressPanicModeButton" destination="Vjf-VU-UNA" eventType="touchUpInside" id="txt-Rs-FRQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0vx-w3-XB7">
+                                <rect key="frame" x="-95.5" y="460.5" width="95" height="95"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="button_help.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressHelpButton" destination="Vjf-VU-UNA" eventType="touchUpInside" id="faL-Fz-13N"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aIo-S0-b3C">
                                 <rect key="frame" x="206" y="417" width="35" height="35"/>
@@ -391,16 +427,58 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <view alpha="0.75" contentMode="scaleToFill" id="LcH-Wf-1mL">
+                                <rect key="frame" x="-72" y="49" width="72" height="96"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xry-aD-AjF">
+                                <rect key="frame" x="279" y="54" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="button_location.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressLocationButton" destination="Vjf-VU-UNA" eventType="touchUpInside" id="84f-2g-eSE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ea6-2A-rqI">
+                                <rect key="frame" x="279" y="93" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="button_heat_off.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressHeatMapButton" destination="Vjf-VU-UNA" eventType="touchUpInside" id="jSK-XU-ihn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="assaultButton" destination="LeM-yn-kTB" id="3LS-IJ-17D"/>
+                        <outlet property="capturePreviewView" destination="LcH-Wf-1mL" id="K6a-hq-VCq"/>
                         <outlet property="emailTextView" destination="8fK-vD-mKq" id="f0v-BK-5hi"/>
+                        <outlet property="endButton" destination="ZaJ-NT-Uiw" id="Jf0-iC-mVP"/>
                         <outlet property="finishActivity" destination="SBW-lu-sMU" id="efm-3g-keZ"/>
+                        <outlet property="finishButton" destination="xC0-CO-jSz" id="prt-Ar-Ki8"/>
+                        <outlet property="heatMapButton" destination="ea6-2A-rqI" id="Il8-BE-FhH"/>
+                        <outlet property="helpButton" destination="0vx-w3-XB7" id="Dqb-Fc-tkj"/>
+                        <outlet property="locationButton" destination="xry-aD-AjF" id="Sea-7A-8w7"/>
                         <outlet property="mapView" destination="Uj8-hU-i7v" id="9fr-Ru-wGi"/>
                         <outlet property="murderButton" destination="wit-Zb-3jQ" id="Gdd-a7-NeU"/>
                         <outlet property="nameTextView" destination="EhK-jf-34p" id="zs7-aR-Tmr"/>
+                        <outlet property="navigationBar" destination="fIs-Ah-bHX" id="NiF-Oy-bC6"/>
                         <outlet property="panicButton" destination="scs-6P-Kot" id="uqf-f1-LLL"/>
                         <outlet property="phoneTextView" destination="lfQ-LR-JT4" id="G08-sO-l3D"/>
                         <outlet property="robberyButton" destination="aIo-S0-b3C" id="IcV-ya-kTK"/>
@@ -414,6 +492,7 @@
             </objects>
             <point key="canvasLocation" x="-1780" y="-900"/>
         </scene>
+        <!--Contacts View Controller - SetupContacts-->
         <scene sceneID="gFX-IK-Tab">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AxC-Em-Xkd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -427,7 +506,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="contactCell" textLabel="hqk-qL-sGc" detailTextLabel="npB-oa-6FD" style="IBUITableViewCellStyleValue1" id="hZh-wx-nbx">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="contactCell" textLabel="hqk-qL-sGc" detailTextLabel="npB-oa-6FD" style="IBUITableViewCellStyleValue1" id="hZh-wx-nbx">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -489,6 +568,7 @@
             </objects>
             <point key="canvasLocation" x="-1190" y="-900"/>
         </scene>
+        <!--New Report View Controller - New Report-->
         <scene sceneID="rDY-Bp-NXb">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4C4-XF-htW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -609,6 +689,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="-1190" y="-1481"/>
         </scene>
+        <!--View Controller - Report Details-->
         <scene sceneID="3J4-RO-EUa">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8dr-HP-iqg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -626,7 +707,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
     </scenes>
     <resources>
         <image name="button_assault.png" width="35" height="35"/>
+        <image name="button_end.png" width="70" height="70"/>
         <image name="button_finish.png" width="79" height="142"/>
+        <image name="button_heat_off.png" width="32" height="32"/>
+        <image name="button_help.png" width="95" height="95"/>
+        <image name="button_location.png" width="32" height="32"/>
         <image name="button_murder.png" width="35" height="35"/>
         <image name="button_panic.png" width="95" height="95"/>
         <image name="button_robbery.png" width="35" height="35"/>
@@ -652,19 +737,30 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <source key="sourceIdentifier" type="project" relativePath="./Classes/GHSMapViewController.h"/>
             <relationships>
                 <relationship kind="action" name="didPressAssaultButton"/>
+                <relationship kind="action" name="didPressEndButton"/>
                 <relationship kind="action" name="didPressFinishButton"/>
+                <relationship kind="action" name="didPressHeatMapButton"/>
+                <relationship kind="action" name="didPressHelpButton"/>
+                <relationship kind="action" name="didPressLocationButton"/>
                 <relationship kind="action" name="didPressMurderButton"/>
+                <relationship kind="action" name="didPressPanicModeButton"/>
                 <relationship kind="action" name="didPressRobberyButton"/>
                 <relationship kind="action" name="didTouchDownUneasyButton"/>
                 <relationship kind="action" name="didTouchUpInsideUneasyButton"/>
                 <relationship kind="action" name="didTouchUpOutsideUneasyButton"/>
                 <relationship kind="outlet" name="assaultButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="capturePreviewView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="emailTextView" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="endButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="finishActivity" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="finishButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="heatMapButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="helpButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="locationButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="murderButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="nameTextView" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="navigationBar" candidateClass="UINavigationBar"/>
                 <relationship kind="outlet" name="panicButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="phoneTextView" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="robberyButton" candidateClass="UIButton"/>
@@ -706,6 +802,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="A3P-PO-4pm"/>
+        <segue reference="lkL-QG-L9I"/>
     </inferredMetricsTieBreakers>
 </document>

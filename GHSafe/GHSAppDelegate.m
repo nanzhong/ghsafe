@@ -11,6 +11,8 @@
 #import "GHSUser.h"
 #import "GHSContact.h"
 #import "GHSReport.h"
+#import "GHSRoute.h"
+#import "GHSLocation.h"
 
 @implementation GHSAppDelegate
 
@@ -40,6 +42,8 @@
     RKManagedObjectMapping *userMapping = [RKManagedObjectMapping mappingForClass:[GHSUser class]];
     RKManagedObjectMapping *contactMapping = [RKManagedObjectMapping mappingForClass:[GHSContact class]];
     RKManagedObjectMapping *reportMapping = [RKManagedObjectMapping mappingForClass:[GHSReport class]];
+    RKManagedObjectMapping *routeMapping = [RKManagedObjectMapping mappingForClass:[GHSRoute class]];
+    RKManagedObjectMapping *locationMapping = [RKManagedObjectMapping mappingForClass:[GHSLocation class]];
      
     userMapping.primaryKeyAttribute = @"id";
     [userMapping mapKeyPath:@"name" toAttribute:@"name"];
@@ -48,7 +52,6 @@
     [userMapping mapKeyPath:@"id" toAttribute:@"id"];
     [userMapping mapKeyPath:@"device_token" toAttribute:@"deviceToken"];
     [userMapping hasMany:@"contacts" withMapping:contactMapping];
-    //[userMapping hasMany:@"reports" withMapping:reportMapping];
     [router routeClass:[GHSUser class] toResourcePath:@"/users/:id\\.json"];
     [router routeClass:[GHSUser class] toResourcePath:@"/users.json" forMethod:RKRequestMethodPOST];
 
@@ -57,24 +60,40 @@
     [contactMapping mapKeyPath:@"email" toAttribute:@"email"];
     [contactMapping mapKeyPath:@"phone" toAttribute:@"phone"];
     [contactMapping mapKeyPath:@"id" toAttribute:@"id"];
-    //[contactMapping hasOne:@"user" withMapping:[userMapping inverseMapping]];
-    //[contactMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:[userMapping inverseMapping] serialize:NO];
+    [contactMapping mapKeyPath:@"user" toRelationship:@"user" withMapping:userMapping serialize:NO];
     
     reportMapping.primaryKeyAttribute = @"id";
     [reportMapping mapAttributes:@"id", @"type", @"date", @"latitude", @"longitude", nil];
     [router routeClass:[GHSReport class] toResourcePath:@"/reports/:id\\.json"];
     [router routeClass:[GHSReport class] toResourcePath:@"/reports.json" forMethod:RKRequestMethodPOST];
     
+    routeMapping.primaryKeyAttribute = @"id";
+    [routeMapping mapAttributes:@"id", @"date", nil];
+    [routeMapping hasMany:@"locations" withMapping:locationMapping];
+    [routeMapping hasOne:@"user" withMapping:userMapping];
+    [router routeClass:[GHSRoute class] toResourcePath:@"/routes/:id\\.json"];
+    [router routeClass:[GHSRoute class] toResourcePath:@"/routes.json" forMethod:RKRequestMethodPOST];
+    
+    locationMapping.primaryKeyAttribute = @"id";
+    [locationMapping mapAttributes:@"id", @"latitude", @"longitude", @"date", @"address", nil];
+    [locationMapping mapKeyPath:@"route" toRelationship:@"route" withMapping:routeMapping serialize:NO];
+    [router routeClass:[GHSLocation class] toResourcePath:@"/routes/:route.id/locations/:id\\.json"];
+    [router routeClass:[GHSLocation class] toResourcePath:@"/routes/:route.id/locations.json" forMethod:RKRequestMethodPOST];
+    
     [manager.mappingProvider addObjectMapping:userMapping];
     [manager.mappingProvider addObjectMapping:contactMapping];
     [manager.mappingProvider addObjectMapping:reportMapping];
+    [manager.mappingProvider addObjectMapping:routeMapping];
+    [manager.mappingProvider addObjectMapping:locationMapping];
     
     manager.router = router;
     
     [manager.mappingProvider setSerializationMapping:[userMapping inverseMapping] forClass:[GHSUser class]];
     [manager.mappingProvider setSerializationMapping:[contactMapping inverseMapping] forClass:[GHSContact class]];
     [manager.mappingProvider setSerializationMapping:[reportMapping inverseMapping] forClass:[GHSReport class]];
-
+    [manager.mappingProvider setSerializationMapping:[routeMapping inverseMapping] forClass:[GHSRoute class]];
+    [manager.mappingProvider setSerializationMapping:[locationMapping inverseMapping] forClass:[GHSLocation class]];
+    
     manager.serializationMIMEType = RKMIMETypeJSON;
     
     return YES;

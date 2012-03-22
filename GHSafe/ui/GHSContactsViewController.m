@@ -185,10 +185,21 @@
     NSString *lastName = (__bridge_transfer NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty); 
     NSString *name = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
     multi = (ABMultiValueRef)ABRecordCopyValue(person, kABPersonEmailProperty);
+    if (ABMultiValueGetCount(multi) == 0) {
+        UIAlertView *error = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Contact does not have an email address" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [error show];
+        return NO;
+    }
     NSString *email = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(multi, 0);
     multi = (ABMultiValueRef)ABRecordCopyValue(person, kABPersonPhoneProperty);
-    NSString *phone = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(multi, 0);
 
+    if (ABMultiValueGetCount(multi) == 0) {
+        UIAlertView *error = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Contact does not have a phone number" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [error show];
+        return NO;
+    }
+    NSString *phone = (__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(multi, 0);
+    
     NSDictionary *contact = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:name, email, phone, nil] forKeys:[NSArray arrayWithObjects:@"name", @"email", @"phone", nil]];
  
     [contacts addObject:contact];

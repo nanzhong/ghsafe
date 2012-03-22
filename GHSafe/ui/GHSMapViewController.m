@@ -10,13 +10,60 @@
 #import "GHSMapViewController.h"
 #import "GHSContactsViewController.h"
 #import "GHSNewReportViewController.h"
-#import "GHSUser.h"
-#import "GHSContact.h"
+#import "UIImage+fixOrientation.h"
+
+UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
+    
+    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    // Lock the base address of the pixel buffer.
+    CVPixelBufferLockBaseAddress(imageBuffer,0);
+    
+    // Get the number of bytes per row for the pixel buffer.
+    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
+    // Get the pixel buffer width and height.
+    size_t width = CVPixelBufferGetWidth(imageBuffer);
+    size_t height = CVPixelBufferGetHeight(imageBuffer);
+    
+    // Create a device-dependent RGB color space.
+    static CGColorSpaceRef colorSpace = NULL;
+    if (colorSpace == NULL) {
+        colorSpace = CGColorSpaceCreateDeviceRGB();
+        if (colorSpace == NULL) {
+            // Handle the error appropriately.
+            return nil;
+        }
+    }
+    
+    // Get the base address of the pixel buffer.
+    void *baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
+    // Get the data size for contiguous planes of the pixel buffer.
+    size_t bufferSize = CVPixelBufferGetDataSize(imageBuffer);
+    
+    // Create a Quartz direct-access data provider that uses data we supply.
+    CGDataProviderRef dataProvider =
+    CGDataProviderCreateWithData(NULL, baseAddress, bufferSize, NULL);
+    // Create a bitmap image from data supplied by the data provider.
+    CGImageRef cgImage =
+    CGImageCreate(width, height, 8, 32, bytesPerRow,
+                  colorSpace, kCGImageAlphaNoneSkipFirst | kCGBitmapByteOrder32Little,
+                  dataProvider, NULL, true, kCGRenderingIntentDefault);
+    CGDataProviderRelease(dataProvider);
+    
+    // Create and return an image object to represent the Quartz image.
+    //UIImage *image = [UIImage imageWithCGImage:cgImage scale:1.0 orientation:UIImageOrientationLeftMirrored];
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+    
+    CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
+    
+    return image;
+}
 
 @implementation GHSMapViewController
 
-@synthesize mapView, setupUserView, nameTextView, emailTextView, phoneTextView;
-@synthesize panicButton, helpButton, endButton, uneasyButton, murderButton, robberyButton, assaultButton, finishButton, finishActivity, settingsButton;
+@synthesize mapView, setupUserView, nameTextView, emailTextView, phoneTextView, capturePreviewView;
+@synthesize panicButton, helpButton, endButton, uneasyButton, murderButton, robberyButton, assaultButton, finishButton, finishActivity, settingsButton, locationButton, heatMapButton;
+@synthesize navigationBar;
 @synthesize reports;
 
 - (void)didReceiveMemoryWarning
@@ -32,28 +79,37 @@
 - (void)reloadReportAnnotations 
 {
     NSArray *annotationsOnMap = self.mapView.annotations;
+    NSMutableArray *annotationsToAdd = [NSMutableArray array];
+    NSMutableArray *overlaysToAdd = [NSMutableArray array];
+    
     if (annotationsOnMap == nil || [annotationsOnMap count] == 0) {
-        NSMutableArray *annotationsToAdd = [NSMutableArray array];
-        
         for (NSString *reportID in reports) {
             GHSReport *report = [GHSReport findFirstByAttribute:@"id" withValue:reportID];
             GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
             [annotationsToAdd addObject:reportAnnotation];
+            
+            GHSHeatOverlay *heatOverlay = [[GHSHeatOverlay alloc] initWithReport:report];
+            [overlaysToAdd addObject:heatOverlay];
         }
-        
-        [self.mapView addAnnotations:annotationsToAdd];
-    } else {
-        NSMutableArray *annotationsToAdd = [NSMutableArray array];
-        
+    } else {  
         for (NSString *reportID in reports) {
             GHSReport *report = [GHSReport findFirstByAttribute:@"id" withValue:reportID];
             if (![annotationsOnMap containsObject:report]) {
                 GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
                 [annotationsToAdd addObject:reportAnnotation];
+                
+                GHSHeatOverlay *heatOverlay = [[GHSHeatOverlay alloc] initWithReport:report];
+                [overlaysToAdd addObject:heatOverlay];
             }
         }
-        
-        [self.mapView addAnnotations:annotationsToAdd];
+    }
+    
+   [self.mapView addAnnotations:annotationsToAdd];
+
+    if (showHeatMap) {
+        [self.mapView addOverlays:overlaysToAdd];
+    } else {
+        [heatOverlays addObjectsFromArray:overlaysToAdd];
     }
 }
 
@@ -64,6 +120,13 @@
         
         GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
         [self.mapView addAnnotation:reportAnnotation];
+        
+        GHSHeatOverlay *heatOverlay = [[GHSHeatOverlay alloc] initWithReport:report];
+        if (showHeatMap) {
+            [self.mapView addOverlay:heatOverlay];
+        } else {
+            [heatOverlays addObject:heatOverlay];
+        }
     }
 }
 
@@ -71,20 +134,28 @@
 {
     NSMutableArray *reportsToAdd = [NSMutableArray array];
     NSMutableArray *annotationsToAdd = [NSMutableArray array];
+    NSMutableArray *overlaysToAdd = [NSMutableArray array];
     
     for (GHSReport *report in multipleReports) {
-        DLog(@"%@", report);
-                DLog(@"%@", report.type);
         if (![reports containsObject:report.id]) {
             [reportsToAdd addObject:report.id];
             
             GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
             [annotationsToAdd addObject:reportAnnotation];
+            
+            GHSHeatOverlay *heatOverlay = [[GHSHeatOverlay alloc] initWithReport:report];
+            [overlaysToAdd addObject:heatOverlay];
         }        
     }
     
     [reports addObjectsFromArray:reportsToAdd];
     [self.mapView addAnnotations:annotationsToAdd];
+    
+    if (showHeatMap) {
+        [self.mapView addOverlays:overlaysToAdd];
+    } else {
+        [heatOverlays addObjectsFromArray:overlaysToAdd];
+    }
 }
 
 - (void)removeNewReportAnnotation
@@ -152,6 +223,121 @@
     reportingButtonsExpanded = NO;
 }
 
+- (void)startPanicMode
+{
+    panicMode = YES;
+    [self contractReportingButtons];
+    [UIView animateWithDuration:0.5
+                          delay:0 
+                        options:UIViewAnimationCurveEaseInOut 
+                     animations:^{
+                         self.uneasyButton.center = CGPointMake(355, 495);
+                         self.panicButton.center = CGPointMake(-47.5, 507.5);
+                         self.endButton.center = CGPointMake(285, 425);
+                         self.helpButton.center = CGPointMake(47.5, 412.5);
+                         self.navigationBar.tintColor = [UIColor colorWithRed:247.0/255.0 green:53.0/255.0 blue:15.0/255.0 alpha:1];
+                         self.navigationBar.translucent = YES;
+                         self.capturePreviewView.center = CGPointMake(41, 97);
+                     } 
+                     completion:NULL];
+
+    panicModeRouteLines = [NSMutableArray array];
+}
+
+- (void)endPanicMode
+{
+    panicMode = NO;
+    [UIView animateWithDuration:0.5
+                          delay:0 
+                        options:UIViewAnimationCurveEaseInOut 
+                     animations:^{
+                         self.uneasyButton.center = CGPointMake(285, 425);
+                         self.panicButton.center = CGPointMake(47.5, 412.5);
+                         self.endButton.center = CGPointMake(355, 495);
+                         self.helpButton.center = CGPointMake(-47.5, 507.5);
+                         self.navigationBar.tintColor = tintColor;
+                         self.capturePreviewView.center = CGPointMake(-36, 97);
+                     } 
+                     completion:NULL];
+
+    [self.mapView removeOverlays:panicModeRouteLines];
+}
+
+- (void)setupCaptureSession
+{
+    frameCounter = 0;
+    captureSession = [[AVCaptureSession alloc] init];
+    [captureSession beginConfiguration];
+    
+    if ([captureSession canSetSessionPreset:AVCaptureSessionPresetLow]) {
+        captureSession.sessionPreset = AVCaptureSessionPresetLow;
+    }
+    else {
+        DLog(@"Could not set capture quality");
+    }
+    AVCaptureDevice *backFacingCamera;
+    
+    NSArray *devices = [AVCaptureDevice devices];
+    for (AVCaptureDevice *device in devices) {
+        if ([device hasMediaType:AVMediaTypeVideo]) {
+            if ([device position] == AVCaptureDevicePositionBack) {
+                backFacingCamera = device;
+                break;
+            }
+        }
+    }
+    
+    NSError *error = nil;
+    AVCaptureDeviceInput *input =
+    [AVCaptureDeviceInput deviceInputWithDevice:backFacingCamera error:&error];
+    if (!input) {
+        DLog(@"Could not create back facing camera capture device");
+    }
+    
+    if ([captureSession canAddInput:input]) {
+        [captureSession addInput:input];
+    }
+    else {
+        DLog(@"Could not add input to capture session");
+    }
+    
+    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
+    [captureSession addOutput:output];
+    output.videoSettings = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_32BGRA] forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+    for (AVCaptureConnection *connection in  output.connections) {
+        connection.videoMinFrameDuration = CMTimeMake(1, 24);
+        connection.videoMaxFrameDuration = CMTimeMake(1, 24);
+    }
+    dispatch_queue_t queue = dispatch_queue_create("PanicImageQueue", NULL);
+    [output setSampleBufferDelegate:self queue:queue];
+    dispatch_release(queue);
+    
+    CALayer *layer = self.capturePreviewView.layer;
+    AVCaptureVideoPreviewLayer *newCaptureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
+    newCaptureVideoPreviewLayer.frame = self.capturePreviewView.frame;
+    
+    if (captureVideoPreviewLayer != nil) {
+        [layer replaceSublayer:captureVideoPreviewLayer with:newCaptureVideoPreviewLayer];
+        
+    } else {
+        [layer addSublayer:newCaptureVideoPreviewLayer];
+    }
+    captureVideoPreviewLayer = newCaptureVideoPreviewLayer;
+    
+    captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    captureVideoPreviewLayer.bounds=layer.bounds;
+    captureVideoPreviewLayer.position=CGPointMake(CGRectGetMidX(layer.bounds), CGRectGetMidY(layer.bounds));
+    
+    [captureSession commitConfiguration];
+    [captureSession startRunning];
+}
+
+- (void)tearDownCaptureSession
+{
+    [captureSession stopRunning];
+    captureSession = nil;
+}
+
 - (GHSReport*)newReportWithType:(NSInteger)type
 {
     CLLocationCoordinate2D coordinate = locationManager.location.coordinate;
@@ -199,8 +385,61 @@
 
 - (void)fireFetchReportsTimer:(NSTimer*)timer 
 {
-    if ([self locationAvailable] && [[RKObjectManager sharedManager] isOnline]) {
-        [self fetchReportsNear:locationManager.location.coordinate];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"setupComplete"] &&
+        [self locationAvailable] && [[RKObjectManager sharedManager] isOnline]) {
+        [self fetchReportsNear:self.mapView.centerCoordinate];
+    }
+}
+
+- (void)fireLocationUpdateTimer:(NSTimer*)timer
+{
+    if ([self locationAvailable]) {
+        CLLocationCoordinate2D coordinate = locationManager.location.coordinate;
+        GHSLocation *location = [GHSLocation createEntity];
+        location.date = [NSDate date];
+        location.latitude = [NSNumber numberWithFloat:coordinate.latitude];
+        location.longitude = [NSNumber numberWithFloat:coordinate.longitude];
+        location.image = latestImageData;
+        location.address = lastAddress;
+        location.route = route;
+        
+        DLog(@"%@", location);
+        
+        //[updateLocationRequest postObject:location mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSLocation class]] onSuccess:@selector(didFinishAddingLocationWithResponseObjects:) onFailure:@selector(didFailAddingLocationWithError:)];
+        
+        [updateLocationRequest postObject:location block:^(RKObjectLoader* loader) {
+            RKObjectMapping* serializationMapping = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[GHSLocation class]];
+            NSError* error = nil;
+            NSDictionary* dictionary = [[RKObjectSerializer serializerWithObject:location mapping:serializationMapping] serializedObject:&error];
+            
+            RKParams* params = [RKParams paramsWithDictionary:dictionary];
+            if (latestImageData != nil) {
+                [params setData:location.image MIMEType:@"image/jpeg" forParam:@"image"];
+            }
+            loader.params = params;
+            loader.objectMapping = [[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSLocation class]];
+        } onSuccess:@selector(didFinishAddingLocationWithResponseObjects:) onFailure:@selector(didFailAddingLocationWithError:)];
+
+        /*
+        NSDictionary *locationDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithFloat:coordinate.latitude], [NSNumber numberWithFloat:coordinate.longitude], [NSDate date], nil] forKeys:[NSArray arrayWithObjects:@"latitude", @"longitude", @"date", nil]];
+        [routeLocations addObject:locationDict];
+        
+        if (route != nil) {
+            sendingLocations = routeLocations;
+            routeLocations = [NSMutableArray array];
+            
+            NSMutableArray *locationObjects = [NSMutableArray array];
+            for (NSDictionary *locationDict in sendingLocations) {
+                GHSLocation *location = [GHSLocation createEntity];
+                location.date = [locationDict objectForKey:@"date"];
+                location.latitude = [locationDict objectForKey:@"latitude"];
+                location.longitude = [locationDict objectForKey:@"longitude"];
+                [locationObjects addObject:location];
+            }
+            
+            [updateLocationRequest postObject:locationObjects mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSLocation class]] onSuccess:@selector(didFinishAddingLocationWithResponseObjects:) onFailure:@selector(didFailAddingLocationWithError:)];
+        }
+         */
     }
 }
 
@@ -215,6 +454,7 @@
     for (GHSReport *report in [GHSReport allObjects]) {
         [reports addObject:report.id];
     }
+    heatOverlays = [NSMutableArray array];
 
     [self reloadReportAnnotations];
     
@@ -222,6 +462,11 @@
     uneasyButtonTouchedForExpand = NO;
     reportingButtonsExpanded = NO;
     finishedFirstLocationReset = NO;
+    
+    panicMode = NO;
+    showHeatMap = YES;
+    
+    tintColor = self.navigationBar.tintColor;
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -231,6 +476,8 @@
     
     [self contractReportingButtons];
     
+    captureVideoPreviewLayer = nil;
+    
     user = nil;
     NSArray *result = [GHSUser allObjects];
     if ([result count] > 0) {
@@ -238,6 +485,8 @@
         DLog(@"Detected existing user: %@", user);
         [self unlockUI];
     } else {
+        self.locationButton.alpha = 0.0;
+        self.heatMapButton.alpha = 0.0;
         registerUserRequest = [[GHSAPIRequest alloc] initWithDelegate:self];
         setupContacts = [NSArray array];
         user = [GHSUser createEntity];
@@ -255,6 +504,9 @@
     
     submitReportRequest = [[GHSAPIRequest alloc] initWithDelegate:self];
     fetchReportsRequest = [[GHSAPIRequest alloc] initWithDelegate:self];
+    createRouteRequest = [[GHSAPIRequest alloc] initWithDelegate:self];
+    updateLocationRequest = [[GHSAPIRequest alloc] initWithDelegate:self];
+    fetchRouteRequest = [[GHSAPIRequest alloc] initWithDelegate:self];
     
     geocoder = [[CLGeocoder alloc] init];
     
@@ -419,6 +671,19 @@
     return nil;
 }
 
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id <MKOverlay>)overlay
+{
+    MKOverlayView *view;
+    if ([overlay class] == [GHSHeatOverlay class]) {
+        view = [[GHSHeatOverlayView alloc] initWithOverlay:overlay];
+    } else {
+        view = [[MKPolylineView alloc] initWithPolyline:overlay];
+        ((MKPolylineView*) view).strokeColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.5];
+        ((MKPolylineView*) view).lineWidth = 3;
+    }
+    return view;
+}
+
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views { 
     for (MKAnnotationView *annotation in views) {
         if ([annotation.annotation isKindOfClass:[GHSNewReportAnnotation class]]) {
@@ -454,6 +719,29 @@
         finishedFirstLocationReset = YES;
         [self fetchReportsNear:coordinate];
     }
+    
+    if (panicMode) {
+        CLLocationCoordinate2D points[2];
+        points[0] = oldLocation.coordinate;
+        points[1] = newLocation.coordinate;
+        
+        if (oldLocation.coordinate.latitude != newLocation.coordinate.latitude ||
+            oldLocation.coordinate.longitude != newLocation.coordinate.longitude) {
+            MKPolyline* polyline = [MKPolyline polylineWithCoordinates:points count:2];
+            [panicModeRouteLines addObject:polyline];
+            [self.mapView addOverlay:polyline];
+        }
+    }
+    
+    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error)
+     {
+         MKPlacemark *placemark = [placemarks objectAtIndex:0];
+         if (placemark.subThoroughfare != nil) {
+             lastAddress = [NSString stringWithFormat:@"%@ %@", placemark.subThoroughfare, placemark.thoroughfare];
+         } else {
+             lastAddress = placemark.thoroughfare;        
+         }
+     }];
 }
 
 #pragma mark - Actions
@@ -517,8 +805,6 @@
     user.email = emailTextView.text;
     user.phone = phoneTextView.text;
     
-    DLog(@"%@", user);
-
     [registerUserRequest postObject:user mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSUser class]] onSuccess:@selector(didFinishCreatingUserWithResponseObjects:) onFailure:@selector(didFailCreatingUserWithError:)];
     
     self.finishButton.titleLabel.alpha = 0;
@@ -564,6 +850,89 @@
 {
     [self submitNewReportWithType:kRobbery];
     [self contractReportingButtons];
+}
+
+- (IBAction)didPressPanicModeButton
+{
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    [self startPanicMode];
+    routeLocations = [NSMutableArray array];
+    routeStartDate = [NSDate date];
+    route = [GHSRoute createEntity];
+    route.date = routeStartDate;
+    route.user = user;
+    
+    DLog(@"%@", route);
+    
+    [createRouteRequest postObject:route mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSRoute class]] onSuccess:@selector(didFinishCreatingRouteWithResponseObjects:) onFailure:@selector(didFailCreatingRouteWithError:)];
+    locationUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(fireLocationUpdateTimer:) userInfo:nil repeats:YES];
+    
+    [self performSelectorInBackground:@selector(setupCaptureSession) withObject:nil];
+}
+
+- (IBAction)didPressHelpButton
+{
+    // XXX - change to 911/emergency #
+    NSString *phoneNumber = [@"tel://" stringByAppendingString:@"12268086022"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
+}
+
+- (IBAction)didPressEndButton
+{
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    [self endPanicMode];
+    [self performSelectorInBackground:@selector(tearDownCaptureSession) withObject:nil];
+    [locationUpdateTimer invalidate];
+    route = nil;
+    routeLocations = nil;
+    sendingLocations = nil;
+    routeStartDate = nil;
+    routeID = nil;
+}
+
+- (IBAction)didPressLocationButton
+{
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.005;
+    span.longitudeDelta = 0.005;
+    region.span = span;
+    region.center = locationManager.location.coordinate;
+    [self.mapView setRegion:region animated:YES];   
+}
+
+- (IBAction)didPressHeatMapButton
+{
+    if (showHeatMap) {
+        heatOverlays = [NSMutableArray array];
+        
+        for (id <MKOverlay> overlay in self.mapView.overlays) {
+            if ([overlay class] == [GHSHeatOverlay class]) {
+                [heatOverlays addObject:overlay];
+            }
+        }
+        
+        [self.mapView removeOverlays:heatOverlays];
+        
+        showHeatMap = NO;
+    } else {
+        [self.mapView addOverlays:heatOverlays];
+        
+        showHeatMap = YES;
+    }
+}
+
+#pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
+
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+    
+    frameCounter += 1;
+    
+    if (frameCounter == 24) {
+        UIImage *image = imageFromSampleBuffer(sampleBuffer);
+        latestImageData = UIImageJPEGRepresentation([image fixOrientation], 1.0);
+        frameCounter = 0;
+    }
 }
 
 #pragma mark - GHSAPIRequest callbacks
@@ -612,6 +981,8 @@
                         options:UIViewAnimationCurveEaseInOut 
                      animations:^{
                          setupUserView.center = CGPointMake(160, -95);
+                         self.locationButton.alpha = 1;
+                         self.heatMapButton.alpha = 1;
                      } 
                      completion:NULL];
     
@@ -643,6 +1014,30 @@
 - (void)didFinishLoadingReportsWithResponseObjects:(NSArray*)objects
 {
     [self addReportAnnotationsToMap:objects];
+}
+
+- (void)didFailCreatingRouteWithError:(NSDictionary*)error
+{
+    DLog(@"Failed to create route, attempting to recreate");
+    route = [GHSRoute createEntity];
+    route.date = routeStartDate;
+    route.user = user;
+    [createRouteRequest postObject:route mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSRoute class]] onSuccess:@selector(didFinishCreatingRouteWithResponseObjects:) onFailure:@selector(didFailCreatingRouteWithError:)];
+}
+
+- (void)didFinishCreatingRouteWithResponseObjects:(NSArray*)objects
+{
+    routeID = route.id;
+}
+
+- (void)didFailAddingLocationWithError:(NSDictionary*)error
+{
+    DLog(@"Failed to add location: %@", error);
+    //[routeLocations addObjectsFromArray:sendingLocations];
+}
+
+- (void)didFinishAddingLocationWithResponseObjects:(NSArray*)objects
+{
 }
 
 #pragma mark - GHSNewReportViewController Delegate Methods
