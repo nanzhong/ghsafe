@@ -4,9 +4,16 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Welcome to example.com, <%= @user.name %></h1>
+    <h1>Attention</h1>
+    <h2><%<%= @user.name %> has just actived Panic Mode on his smartphone and is looking to you for help!</h2>
     <p>
-    <a href="http://ghsafe.com/routes/<%= @route_id %>/track">http://ghsafe.com/routes/<%= @route_id %>/track</a>
+    He can be tracked live at <a href="http://ghsafe.com/routes/<%= @route_id %>/track">http://ghsafe.com/routes/<%= @route_id %>/track</a>
+    </p>
+    <p>
+    This email was sent to you because you were listed as an emergency contact when the user of this service. To unlist yourself please go here: <a href="http://www.ghsafe.com/unlist/">http://www.ghsafe.com/unlist/</a>
+
+    Get Home Safe
+    GHSafe.com
     </p>
   </body>
 </html>

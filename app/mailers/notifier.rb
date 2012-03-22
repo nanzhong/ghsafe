@@ -3,9 +3,10 @@ class Notifier < ActionMailer::Base
 
   def notify_contacts(user, route)
     user.contacts
+    @user = user
     @route_id = route.id
     mail(:to      => (user.contacts.map {|c| c.email }).join(","),
-         :subject => "ATTENTION: #{user.name} has activated PANIC MODE")
+         :subject => "Attention: #{user.name} has activated panic mode")
   end
 
 end
