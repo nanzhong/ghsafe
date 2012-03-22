@@ -1,0 +1,1 @@
+/Users/nan/Downloads/BetaBuilder.app/Contents/Resources/README
