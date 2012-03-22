@@ -18,7 +18,8 @@ class LocationsController < ApplicationController
 
     location_hash = { :latitude => params[:latitude], 
                       :longitude => params[:longitude], 
-                      :date => params[:date] }
+                      :date => params[:date],
+                      :address => params[:address]}
 
     @location = Location.new(location_hash)
 

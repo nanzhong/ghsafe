@@ -31,21 +31,33 @@
 <% if notice %>
   <p id="notice"><%= notice %> </p>
 <% end %>
-<h1>Tracking <span id="user_name"><%= @route.user.name %></span></h1>
-<div id="last_update">Last updated location at: <%= @route.locations.last.date %></div>
-<div id="track_container" style="position:relative; width:640px; height:480px; float:left; margin:10px; padding:2px; border:2px solid #000000">
-  <div id="map_canvas" style="width:640px; height:480px;"></div>
-  <%= render :partial => "last_image", :locals => { :last_location => @last_location, :route => @route} %>
-</div>
 
-<div id="data_points" style="width:400px; height:400px; float:left; overflow:scroll;">
-  <h2>Recent Locations</h2>
-  <% (@route.locations[-20..-1] || @route.locations).each do |location| %>
-    <p>Lat: <%= location.latitude %> Long: <%= location.longitude %> Date: <%= location.date %></p>
-  <% end %>
-</div>
+<div id="wrapper" style="position:relative; float:left; width:100%;">
+  <div id="outer" style="position:relative; float:left; clear:left; left:50%; text-align:center;">
+    <div id="inner" style="position:relative; display:block; float:left; right:50%;">
+      <h1>Tracking <span id="user_name"><%= @route.user.name %></span></h1>
+      <%= render :partial => "last_location", :object => @last_location %>
 
-<%= render :partial => "last_location", :object => @last_location %>
+      <div id="main">
+        <div id="track_container" style="position:relative; width:640px; height:480px; float:left; margin:10px; padding:2px; border:2px solid #000000">
+          <div id="map_canvas" style="width:640px; height:480px;"></div>
+          <%= render :partial => "last_image", :locals => { :last_location => @last_location, :route => @route} %>
+        </div>
+
+        <div id="data_points" style="width:400px; height:510px; float:left; text-align:left;">
+          <h2>Recent Locations</h2>
+          <div style="overflow:scroll; height:435px;">
+            <% (@recent_locations).each do |location| %>
+              <p><strong><%= location.address %></strong><br />
+              Latitude: <%= location.latitude %> Longitude: <%= location.longitude %><br />
+              <%= time_ago_in_words(location.date) %> at <%= location.date %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% else %>
   Sorry no data yet for this route

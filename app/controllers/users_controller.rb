@@ -13,8 +13,6 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.save
 
-    puts @user.errors.inspect
-
     respond_with(@user)
   end
   
@@ -22,6 +20,8 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update_attributes(params[:post])
+    @user.contacts = params[:contacts]
+    @user.save
 
     respond_with(@user)
   end

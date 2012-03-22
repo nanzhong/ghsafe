@@ -1,3 +1,5 @@
+require 'net/http'
+
 class RoutesController < ApplicationController
 
   respond_to :json
@@ -10,6 +12,8 @@ class RoutesController < ApplicationController
     @route = @user.routes.create(params[:route])
     @route.save
 
+    Notifier.notify_contacts(@user, @route)
+
     respond_with(@route)
   end
 
@@ -21,6 +25,19 @@ class RoutesController < ApplicationController
     @route = Route.find(params[:route_id])
 
     @last_location = @route.locations.last
+
+    @recent_locations = []
+    num = 0
+    addresses = []
+    @route.locations.reverse.each do |l|
+      break if num == 20
+      unless addresses.include?(l.address)
+        addresses << l.address
+        @recent_locations << l
+
+        num += 1
+      end
+    end
 
     render :layout => 'track'
   end

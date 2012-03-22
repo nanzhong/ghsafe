@@ -5,6 +5,7 @@ class Location
   key :latitude,  Float
   key :longitude, Float
   key :date, Time
+  key :address, String
 
   attachment :image
 

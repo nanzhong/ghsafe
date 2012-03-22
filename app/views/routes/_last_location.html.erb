@@ -1,1 +1,5 @@
-<div id="last_location" data-date="<%= last_location.date.to_i %>">Lat: <%= last_location.latitude %> Long: <%= last_location.longitude %> Date: <%= last_location.date %></div>
+<div id="last_location" data-date="<%= last_location.date.to_i %>">
+  <span style="font-size: 1.2em;"><strong>Most Recent Update</strong>
+    <em><%= time_ago_in_words(last_location.date) %> ago at <%= last_location.date %></em></span><br />
+  <span style="font-size: 1.2em;"><strong>Address:</strong> <%= last_location.address %> <strong>Latitude:</strong> <%= last_location.latitude %> <strong>Longitude:</strong> <%= last_location.longitude %> <strong>Date:</strong> <%= last_location.date %></span>
+</div>
