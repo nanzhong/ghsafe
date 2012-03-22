@@ -12,7 +12,7 @@ class RoutesController < ApplicationController
     @route = @user.routes.create(params[:route])
     @route.save
 
-    Notifier.notify_contacts(@user, @route)
+    Notifier.notify_contacts(@user, @route).deliver
 
     respond_with(@route)
   end
