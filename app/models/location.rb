@@ -1,5 +1,5 @@
 class Location
-  include MongoMapper::EmbeddedDocument
+  include MongoMapper::Document
   plugin Joint
 
   key :latitude,  Float
@@ -8,8 +8,6 @@ class Location
   key :address, String
 
   attachment :image
-
-  embedded_in :route
 
   belongs_to :route
 
