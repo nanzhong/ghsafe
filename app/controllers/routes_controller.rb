@@ -17,15 +17,19 @@ class RoutesController < ApplicationController
     respond_with(@route)
   end
 
+  def index
+    @routes = Route.all
+  end
+
   def track
     @route = Route.find(params[:route_id])
 
-    @last_location = @route.locations.last
+    @last_location = @route.locations.sort(:date.desc).limit(1).first
 
     @recent_locations = []
     num = 0
     addresses = []
-    @route.locations.reverse.each do |l|
+    @route.locations.sort(:date.desc).limit(100).each do |l|
       break if num == 20
       unless addresses.include?(l.address)
         addresses << l.address
@@ -41,7 +45,7 @@ class RoutesController < ApplicationController
   def update_locations
     @route = Route.find(params[:route_id])
     @after = Time.at(params[:after].to_i)
-    @locations = @route.locations.select {|l| l.date > @after}
+    @locations = @route.locations.where(:date => {:$gt => @after}).sort(:date.desc)
   end
 
 end

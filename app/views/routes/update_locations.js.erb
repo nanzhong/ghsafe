@@ -8,7 +8,7 @@
 
   var newLocations = new Array();
   newLocations.push(lastLocation);
-  <% @locations.uniq.each do |location| %>
+  <% @locations.all.each do |location| %>
     newLocations.push(new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>));
   <% end %>
 

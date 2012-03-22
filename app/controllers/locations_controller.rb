@@ -25,8 +25,8 @@ class LocationsController < ApplicationController
 
     @location.image = params[:image].tempfile unless params[:image].nil?
 
-    @route.locations << @location
-    @route.save
+    @location.route = @route
+    @location.save
 
     respond_with(@location, :location => nil)
   end
