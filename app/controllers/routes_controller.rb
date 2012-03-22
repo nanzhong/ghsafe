@@ -17,10 +17,6 @@ class RoutesController < ApplicationController
     respond_with(@route)
   end
 
-  def index
-    @routes = Route.all
-  end
-
   def track
     @route = Route.find(params[:route_id])
 
