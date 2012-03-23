@@ -1,3 +1,3 @@
 <% @routes.each do |route| %>
-  <%= route.id %> Locations: <%= route.locations.count %><br />
+  <%= route.id %> Locations: <%= route.locations.count %> User: <%= route.user.name %> <a href="/routes/<%= route.id %>/track">Show</a> | <a href="/routes/<%= route.id %>" data-method="delete">Destroy</a><br />
 <% end %>

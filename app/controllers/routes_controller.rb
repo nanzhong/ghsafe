@@ -18,7 +18,7 @@ class RoutesController < ApplicationController
   end
 
   def index
-    @routes = Route.all
+    @routes = Route.sort(:date.desc).all
   end
 
   def track
@@ -57,6 +57,14 @@ class RoutesController < ApplicationController
         @recent_locations << l
       end
     end
+  end
+
+  def destroy
+    @route = Route.find(params[:id])
+    @route.locations.delete_all
+    @route.delete
+
+    redirect_to routes_url
   end
 
 end
