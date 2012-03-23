@@ -1,0 +1,5 @@
+<div>
+  <p><strong><%= location.address %></strong><br />
+  Latitude: <%= location.latitude %> Longitude: <%= location.longitude %><br />
+  <%= time_ago_in_words(location.date) %> at <%= location.date.in_time_zone('Eastern Time (US & Canada)') %></p>
+</div>

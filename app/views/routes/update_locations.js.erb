@@ -1,14 +1,17 @@
 <% if @locations.count > 0 %>
 
-  <% if not @locations.last.image_id.nil? %>
+  <% if not @locations.first.image_id.nil? %>
     $("#last_image").attr("src", "/routes/<%= @route.id %>/locations/<%= @locations.last.id %>/image");
   <% end %>
 
-  $("#last_location").replaceWith("<%= raw escape_javascript(render :partial => 'last_location', :object => @locations.last) %>");
+  $("#last_location").replaceWith("<%= raw escape_javascript(render :partial => 'last_location', :object => @locations.first) %>");
+
+  <% @recent_locations.reverse.each do |location| %>
+    $("#data_points").prepend("<%= raw escape_javascript(render :partial => 'location', :object => location) %>");
+  <% end %>
 
   var newLocations = new Array();
-  newLocations.push(lastLocation);
-  <% @locations.all.reverse.each do |location| %>
+  <% @locations.reverse.each do |location| %>
     newLocations.push(new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>));
   <% end %>
 

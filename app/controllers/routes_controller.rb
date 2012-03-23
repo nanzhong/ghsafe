@@ -45,7 +45,18 @@ class RoutesController < ApplicationController
   def update_locations
     @route = Route.find(params[:route_id])
     @after = Time.at(params[:after].to_i)
-    @locations = @route.locations.where(:date => {:$gt => @after}).sort(:date.desc)
+    @locations = @route.locations.where(:date => {:$gte => @after}).sort(:date.desc)
+    @prev_location = @locations.all.pop
+    @locations = @locations.all
+
+    @recent_locations = []
+    addresses = [@prev_location.address]
+    @locations.each do |l|
+      unless addresses.include?(l.address)
+        addresses << l.address
+        @recent_locations << l
+      end
+    end
   end
 
 end

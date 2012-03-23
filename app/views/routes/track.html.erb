@@ -42,13 +42,11 @@
       <%= render :partial => "last_image", :locals => { :last_location => @last_location, :route => @route} %>
     </div>
 
-    <div id="data_points" style="width:400px; height:510px; float:left; text-align:left;">
+    <div style="width:400px; height:510px; float:left; text-align:left;">
       <h2>Recent Locations</h2>
-      <div style="overflow:scroll; height:435px;">
+      <div id="data_points" style="overflow:scroll; height:435px;">
         <% (@recent_locations).each do |location| %>
-          <p><strong><%= location.address %></strong><br />
-          Latitude: <%= location.latitude %> Longitude: <%= location.longitude %><br />
-          <%= time_ago_in_words(location.date) %> at <%= location.date %></p>
+          <%= render :partial => 'location', :object => location %>
         <% end %>
       </div>
     </div>
