@@ -10,12 +10,14 @@
 
 @implementation GHSHeatOverlay
 
-@synthesize boundingMapRect, coordinate, radius;
+@synthesize boundingMapRect, coordinate, radius, reportID, date;
 
 - (id)initWithReport:(GHSReport *)report 
 {
     self = [super init];
     if (self) {
+        self.reportID = report.id;
+        self.date = report.date;
         CLLocationCoordinate2D reportCoordinate;
         reportCoordinate.latitude = [report.latitude doubleValue];
         reportCoordinate.longitude = [report.longitude doubleValue];

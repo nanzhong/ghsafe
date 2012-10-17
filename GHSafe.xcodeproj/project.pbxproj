@@ -96,6 +96,7 @@
 		394D472014DF3A6000FC475E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 394D471E14DF3A6000FC475E /* CoreMedia.framework */; };
 		394D472114DF3A6000FC475E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 394D471F14DF3A6000FC475E /* CoreVideo.framework */; };
 		39A93246151AC15300472264 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A93245151AC15300472264 /* UIImage+fixOrientation.m */; };
+		39A9324B151BE3F000472264 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39A9324A151BE3EF00472264 /* Entitlements.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,6 +255,7 @@
 		394D471F14DF3A6000FC475E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		39A93244151AC15300472264 /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+fixOrientation.h"; path = "lib/UIImage+fixOrientation.h"; sourceTree = "<group>"; };
 		39A93245151AC15300472264 /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+fixOrientation.m"; path = "lib/UIImage+fixOrientation.m"; sourceTree = "<group>"; };
+		39A9324A151BE3EF00472264 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Entitlements.plist; path = ../Entitlements.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -424,6 +426,7 @@
 		3942B17014CB435A00022626 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				39A9324A151BE3EF00472264 /* Entitlements.plist */,
 				3942B17114CB435A00022626 /* GHSafe-Info.plist */,
 				3942B17214CB435A00022626 /* InfoPlist.strings */,
 				3942B17514CB435A00022626 /* main.m */,
@@ -659,6 +662,7 @@
 				391CDA50151A96C800F0E145 /* button_heat_on@2x.png in Resources */,
 				391CDA51151A96C800F0E145 /* button_location.png in Resources */,
 				391CDA52151A96C800F0E145 /* button_location@2x.png in Resources */,
+				39A9324B151BE3F000472264 /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -765,7 +769,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nan Zhong (5F6KSKRCMP)";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -781,7 +786,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PROVISIONING_PROFILE = "3A728FEB-E972-4CFD-ABAD-24784DBCCE38";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -792,7 +797,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nan Zhong (5F6KSKRCMP)";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -802,7 +808,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "3A728FEB-E972-4CFD-ABAD-24784DBCCE38";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

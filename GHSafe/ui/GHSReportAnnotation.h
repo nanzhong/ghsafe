@@ -11,16 +11,16 @@
 #import "GHSReport.h"
 
 @interface GHSReportAnnotation : NSObject <MKAnnotation> {
-    CLLocationCoordinate2D coordinate;
-    NSString *address;
+    NSString *reportID;
     NSDate *date;
-    NSInteger type;
+    NSString *address;
 }
 
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, retain) NSString *address;
 @property (nonatomic, retain) NSDate *date;
 @property (nonatomic, assign) NSInteger type;
+@property (nonatomic, retain) NSString *reportID;
 
 - (id)initWithReport:(GHSReport *)report;
 - (NSInteger)type;

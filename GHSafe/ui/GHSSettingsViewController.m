@@ -12,7 +12,7 @@
 
 @implementation GHSSettingsViewController
 
-@synthesize nameTextField, emailTextField, phoneTextField, titleNavigationItem, saveButton, cancelButton, activityIndicator;
+@synthesize nameTextField, emailTextField, phoneTextField, filterTextField, titleNavigationItem, saveButton, cancelButton, activityIndicator, delegate;
 
 - (void)lockUI 
 {
@@ -50,6 +50,7 @@
     self.nameTextField.text = user.name;
     self.emailTextField.text = user.email;
     self.phoneTextField.text = user.phone;
+    self.filterTextField.text = [NSString stringWithFormat:@"%d", [[NSUserDefaults standardUserDefaults] integerForKey:@"filterRange"]];
     self.activityIndicator.alpha = 0;
     
     saveUserRequest = [[GHSAPIRequest alloc] initWithDelegate:self];
@@ -89,45 +90,6 @@
 
 #pragma mark - Table view data source
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -135,6 +97,8 @@
     if ([indexPath section] == 0 && [indexPath row] == 3) {
         [self performSegueWithIdentifier:@"ManageContacts" sender:self];
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    } else if ([indexPath section] == 1) {
+        [self.filterTextField becomeFirstResponder];
     }
 }
 
@@ -194,6 +158,9 @@
 - (void)didFinishSavingUserWithResponseObjects:(NSArray*)objects
 {
     [self unlockUI];
+    NSInteger filterRange = [self.filterTextField.text intValue];
+    
+    [self.delegate settingsViewController:self didFinishUpdatingFilterRange:filterRange];
     [self dismissModalViewControllerAnimated:YES];    
 }
 

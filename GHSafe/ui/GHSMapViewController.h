@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "GHSContactsViewController.h"
+#import "GHSSettingsViewController.h"
 #import "GHSNewReportViewController.h"
 #import "GHSReportAnnotation.h"
 #import "GHSNewReportAnnotation.h"
@@ -23,7 +24,7 @@
 
 UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 
-@interface GHSMapViewController : UIViewController <GHSContactsViewControllerDelegate, GHSNewReportViewControllerDelegate, MKMapViewDelegate, CLLocationManagerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate> 
+@interface GHSMapViewController : UIViewController <GHSContactsViewControllerDelegate, GHSNewReportViewControllerDelegate, GHSSettingsViewControllerDelegate, MKMapViewDelegate, CLLocationManagerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate> 
 {
     GHSUser *user;
     GHSAPIRequest *registerUserRequest;
@@ -46,7 +47,6 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
     
     GHSNewReportAnnotation *newReportAnnotation;
     
-    NSMutableArray *reports;
     NSTimer *fetchReportsTimer;
     GHSAPIRequest *fetchReportsRequest;
     NSMutableArray *heatOverlays;
@@ -91,8 +91,7 @@ UIImage *imageFromSampleBuffer(CMSampleBufferRef sampleBuffer);
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *settingsButton;
 @property (nonatomic, retain) IBOutlet UINavigationBar *navigationBar;
 @property (nonatomic, retain) IBOutlet UIView *capturePreviewView;
-
-@property (nonatomic, retain) NSMutableArray *reports;
+@property (nonatomic, retain) IBOutlet UILabel *connectionErrorLabel;
 
 - (void)fetchReportsNear:(CLLocationCoordinate2D)location;
 - (void)handleLongMapPress:(UIGestureRecognizer *)gestureRecognizer;

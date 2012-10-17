@@ -34,6 +34,7 @@
     // Clean up stale/wrong data if never completed first launch setup
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"setupComplete"]) {
         [GHSUser truncateAll];
+        [[NSUserDefaults standardUserDefaults] setInteger:14 forKey:@"filterRange"];
     }
     [GHSReport truncateAll];
     

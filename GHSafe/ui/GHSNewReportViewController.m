@@ -108,7 +108,13 @@
 
     [request postObject:newReport mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSReport class]] onSuccess:@selector(didFinishCreatingReportWithResponseObjects:) onFailure:@selector(didFailCreatingReportWithError:)];
     
-    self.loadingView.alpha = 1;
+    [UIView animateWithDuration:0.5
+                          delay:0 
+                        options:UIViewAnimationCurveEaseInOut 
+                     animations:^{
+                         self.loadingView.alpha = 0.9;
+                     } 
+                     completion:NULL];
 }
 
 #pragma mark - MKMapView Delegate Methods
@@ -135,7 +141,13 @@
 
 - (void)didFailCreatingReportWithError:(NSDictionary*)error
 {
-    self.loadingView.alpha = 0;
+    [UIView animateWithDuration:0.5
+                          delay:0 
+                        options:UIViewAnimationCurveEaseInOut 
+                     animations:^{
+                         self.loadingView.alpha = 0;
+                     } 
+                     completion:NULL];
     
     UIAlertView *validation = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"Error saving incident report..." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [validation show];
@@ -145,7 +157,13 @@
 
 - (void)didFinishCreatingReportWithResponseObjects:(NSArray*)objects
 {
-    self.loadingView.alpha = 0;
+    [UIView animateWithDuration:0.5
+                          delay:0 
+                        options:UIViewAnimationCurveEaseInOut 
+                     animations:^{
+                         self.loadingView.alpha = 0;
+                     } 
+                     completion:NULL];
     
     [self.delegate newReportViewController:self didFinishCreatingReport:newReport];
     

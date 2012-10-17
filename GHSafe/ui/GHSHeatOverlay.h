@@ -9,11 +9,16 @@
 #import <MapKit/MapKit.h>
 #import "GHSReport.h"
 
-@interface GHSHeatOverlay : NSObject <MKOverlay>
+@interface GHSHeatOverlay : NSObject <MKOverlay> {
+    NSString *reportID;
+    NSDate *date;
+}
 
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, assign) MKMapRect boundingMapRect;
 @property (nonatomic, assign) double radius;
+@property (nonatomic, retain) NSDate *date;
+@property (nonatomic, retain) NSString *reportID;
 
 - (id)initWithReport:(GHSReport *)report;
 

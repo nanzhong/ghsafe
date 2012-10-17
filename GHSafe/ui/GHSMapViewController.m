@@ -62,9 +62,8 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
 @implementation GHSMapViewController
 
 @synthesize mapView, setupUserView, nameTextView, emailTextView, phoneTextView, capturePreviewView;
-@synthesize panicButton, helpButton, endButton, uneasyButton, murderButton, robberyButton, assaultButton, finishButton, finishActivity, settingsButton, locationButton, heatMapButton;
+@synthesize panicButton, helpButton, endButton, uneasyButton, murderButton, robberyButton, assaultButton, finishButton, finishActivity, settingsButton, locationButton, heatMapButton, connectionErrorLabel;
 @synthesize navigationBar;
-@synthesize reports;
 
 - (void)didReceiveMemoryWarning
 {
@@ -76,36 +75,54 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
 
 #pragma mark - Map annotation helpers
 
+- (BOOL)shouldBeFiltered:(NSDate *)date {
+    NSInteger range = [[NSUserDefaults standardUserDefaults] integerForKey:@"filterRange"];
+    
+    NSDate *dateThreshold = [NSDate dateWithTimeIntervalSinceNow:-60*60*24*range];
+    
+    if ([date compare:dateThreshold] == NSOrderedDescending) {
+        return NO;
+    }
+    
+    return YES;
+}
+
 - (void)reloadReportAnnotations 
-{
-    NSArray *annotationsOnMap = self.mapView.annotations;
+{    
     NSMutableArray *annotationsToAdd = [NSMutableArray array];
     NSMutableArray *overlaysToAdd = [NSMutableArray array];
     
-    if (annotationsOnMap == nil || [annotationsOnMap count] == 0) {
-        for (NSString *reportID in reports) {
-            GHSReport *report = [GHSReport findFirstByAttribute:@"id" withValue:reportID];
-            GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
-            [annotationsToAdd addObject:reportAnnotation];
-            
-            GHSHeatOverlay *heatOverlay = [[GHSHeatOverlay alloc] initWithReport:report];
-            [overlaysToAdd addObject:heatOverlay];
-        }
-    } else {  
-        for (NSString *reportID in reports) {
-            GHSReport *report = [GHSReport findFirstByAttribute:@"id" withValue:reportID];
-            if (![annotationsOnMap containsObject:report]) {
-                GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
-                [annotationsToAdd addObject:reportAnnotation];
-                
-                GHSHeatOverlay *heatOverlay = [[GHSHeatOverlay alloc] initWithReport:report];
-                [overlaysToAdd addObject:heatOverlay];
+    NSMutableArray *reports = [NSMutableArray array];
+    
+    for (id <MKAnnotation> ann in self.mapView.annotations) {
+        if ([ann isKindOfClass:[GHSReportAnnotation class]]) {
+            GHSReportAnnotation *annotation = ann;
+            if ([self shouldBeFiltered:annotation.date]) {
+                [self.mapView removeAnnotation:annotation];
+            } else {
+                [reports addObject: annotation.reportID];
             }
         }
     }
     
-   [self.mapView addAnnotations:annotationsToAdd];
+    for (GHSHeatOverlay *overlay in self.mapView.overlays) {
+        if ([self shouldBeFiltered:overlay.date]) {
+            [self.mapView removeOverlay:overlay];
+        }
+    }
+    
+    for (GHSReport *report in [GHSReport allObjects]) {
+        if (![self shouldBeFiltered:report.date] &&
+            ![reports containsObject:report.id]) {
+            GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
+            GHSHeatOverlay *heatOverlay = [[GHSHeatOverlay alloc] initWithReport:report];
 
+            [annotationsToAdd addObject:reportAnnotation];
+            [overlaysToAdd addObject:heatOverlay];
+        }
+    }
+
+    [self.mapView addAnnotations:annotationsToAdd];
     if (showHeatMap) {
         [self.mapView addOverlays:overlaysToAdd];
     } else {
@@ -115,17 +132,28 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
 
 - (void)addReportAnnotationToMap:(GHSReport*)report
 {
-    if (![reports containsObject:report.id]) {
-        [reports addObject:report.id];
-        
-        GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
-        [self.mapView addAnnotation:reportAnnotation];
-        
-        GHSHeatOverlay *heatOverlay = [[GHSHeatOverlay alloc] initWithReport:report];
-        if (showHeatMap) {
-            [self.mapView addOverlay:heatOverlay];
-        } else {
-            [heatOverlays addObject:heatOverlay];
+    NSMutableArray *reports = [NSMutableArray array];
+    
+    for (id <MKAnnotation> ann in self.mapView.annotations) {
+        if ([ann isKindOfClass:[GHSReportAnnotation class]]) {
+            GHSReportAnnotation *annotation = ann;
+            [reports addObject: annotation.reportID];
+        }
+    }
+    
+    if (![self shouldBeFiltered:report.date]) {
+        if (![reports containsObject:report.id]) {
+            [reports addObject:report.id];
+            
+            GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
+            [self.mapView addAnnotation:reportAnnotation];
+            
+            GHSHeatOverlay *heatOverlay = [[GHSHeatOverlay alloc] initWithReport:report];
+            if (showHeatMap) {
+                [self.mapView addOverlay:heatOverlay];
+            } else {
+                [heatOverlays addObject:heatOverlay];
+            }
         }
     }
 }
@@ -136,16 +164,27 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
     NSMutableArray *annotationsToAdd = [NSMutableArray array];
     NSMutableArray *overlaysToAdd = [NSMutableArray array];
     
+    NSMutableArray *reports = [NSMutableArray array];
+    
+    for (id <MKAnnotation> ann in self.mapView.annotations) {
+        if ([ann isKindOfClass:[GHSReportAnnotation class]]) {
+            GHSReportAnnotation *annotation = ann;
+            [reports addObject: annotation.reportID];
+        }
+    }
+    
     for (GHSReport *report in multipleReports) {
-        if (![reports containsObject:report.id]) {
-            [reportsToAdd addObject:report.id];
-            
-            GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
-            [annotationsToAdd addObject:reportAnnotation];
-            
-            GHSHeatOverlay *heatOverlay = [[GHSHeatOverlay alloc] initWithReport:report];
-            [overlaysToAdd addObject:heatOverlay];
-        }        
+        if (![self shouldBeFiltered:report.date]) {
+            if (![reports containsObject:report.id]) {
+                [reportsToAdd addObject:report.id];
+                DLog(@"%@", report.id);
+                GHSReportAnnotation *reportAnnotation = [[GHSReportAnnotation alloc] initWithReport:report];
+                [annotationsToAdd addObject:reportAnnotation];
+                
+                GHSHeatOverlay *heatOverlay = [[GHSHeatOverlay alloc] initWithReport:report];
+                [overlaysToAdd addObject:heatOverlay];
+            }        
+        }
     }
     
     [reports addObjectsFromArray:reportsToAdd];
@@ -190,6 +229,28 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
     self.settingsButton.enabled = YES;
     
     uiLocked = NO;    
+}
+
+- (void)showConnectionError 
+{
+    [UIView animateWithDuration:0.5
+                          delay:0 
+                        options:UIViewAnimationCurveEaseInOut 
+                     animations:^{
+                         self.connectionErrorLabel.alpha = 0.6;
+                     } 
+                     completion:NULL];       
+}
+
+- (void)hideConnectionError 
+{
+    [UIView animateWithDuration:0.5
+                          delay:0 
+                        options:UIViewAnimationCurveEaseInOut 
+                     animations:^{
+                         self.connectionErrorLabel.alpha = 0;
+                     } 
+                     completion:NULL];          
 }
 
 - (void)expandReportingButtons
@@ -367,11 +428,26 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
 {
     if([self locationAvailable]) {
         if ([submitReportRequest isComplete]) {
+            UIAlertView *error = [[UIAlertView alloc] initWithTitle:@"Submit Report" message:@"Are you sure you wish to submit this report?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles: @"No", nil];
+            [error show];
+            
             newReport = [self newReportWithType:type];
-            [submitReportRequest postObject:newReport mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSReport class]] onSuccess:@selector(didFinishCreatingReportWithResponseObjects:) onFailure:@selector(didFailCreatingReportWithError:)];
         } else {
             UIAlertView *error = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"Please wait until your last report is saved..." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [error show];            
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([alertView.title isEqualToString:@"Submit Report"] &&
+        [alertView.message isEqualToString:@"Are you sure you wish to submit this report?"]) {
+        if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
+            [submitReportRequest postObject:newReport mapWith:[[RKObjectManager sharedManager].mappingProvider objectMappingForClass:[GHSReport class]] onSuccess:@selector(didFinishCreatingReportWithResponseObjects:) onFailure:@selector(didFailCreatingReportWithError:)];
+        } else {
+            [newReport deleteEntity];
+            newReport = nil;
         }
     }
 }
@@ -450,10 +526,6 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
     [super viewDidLoad];
     [self lockUI];
     
-    reports = [NSMutableArray array];
-    for (GHSReport *report in [GHSReport allObjects]) {
-        [reports addObject:report.id];
-    }
     heatOverlays = [NSMutableArray array];
 
     [self reloadReportAnnotations];
@@ -467,13 +539,14 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
     showHeatMap = YES;
     
     tintColor = self.navigationBar.tintColor;
+    self.connectionErrorLabel.alpha = 0;
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     [locationManager startUpdatingLocation];
     
     [self.mapView googleLogo].center = CGPointMake(self.view.center.x, [self.mapView googleLogo].center.y);
-    
+    [self.connectionErrorLabel.layer setCornerRadius:5.0f];
     [self contractReportingButtons];
     
     captureVideoPreviewLayer = nil;
@@ -540,10 +613,16 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
         GHSContactsViewController *contactsViewController = segue.destinationViewController;
 		contactsViewController.delegate = self;
         [contactsViewController preloadContacts:setupContacts];
+        [self.nameTextView resignFirstResponder];
+        [self.emailTextView resignFirstResponder];
+        [self.phoneTextView resignFirstResponder];
 	} else if ([segue.identifier isEqualToString:@"NewReport"]) {
         GHSNewReportViewController *newReportController = segue.destinationViewController;
         newReportController.delegate = self;
         [newReportController loadReportCoordinate:newReportAnnotation.coordinate withAddress:newReportAnnotation.address];
+    } else if ([segue.identifier isEqualToString:@"Settings"]) {
+        GHSSettingsViewController *settingsViewController = segue.destinationViewController;
+        settingsViewController.delegate = self;
     }
 }
 
@@ -561,11 +640,15 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
     }
 }
 
-#pragma mark - MKMapView Delegate Methods
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+#pragma mark - GHSSettingsViewControllerDelegate
+
+- (void)settingsViewController:(GHSSettingsViewController*)controller didFinishUpdatingFilterRange:(NSInteger)range
 {
-    
+    [[NSUserDefaults standardUserDefaults] setInteger:range forKey:@"filterRange"];
+    [self reloadReportAnnotations];
 }
+
+#pragma mark - MKMapView Delegate Methods
 
 - (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
@@ -873,7 +956,7 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
 - (IBAction)didPressHelpButton
 {
     // XXX - change to 911/emergency #
-    NSString *phoneNumber = [@"tel://" stringByAppendingString:@"12268086022"];
+    NSString *phoneNumber = [@"tel://" stringByAppendingString:@"12263389412"];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
 }
 
@@ -1007,12 +1090,12 @@ UIImage* imageFromSampleBuffer(CMSampleBufferRef sampleBuffer) {
 
 - (void)didFailLoadingReportsWithError:(NSDictionary*)error
 {
-    UIAlertView *validation = [[UIAlertView alloc] initWithTitle:@"Sorry..." message:@"Server error fetching reports from server..." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [validation show];
+    [self showConnectionError];
 }
 
 - (void)didFinishLoadingReportsWithResponseObjects:(NSArray*)objects
 {
+    [self hideConnectionError];
     [self addReportAnnotationsToMap:objects];
 }
 
